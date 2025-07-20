@@ -1,0 +1,423 @@
+.main {
+  position: relative;
+  background-color: #000;
+  color: #fff;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.main .description {
+  gap: 40px;
+  /*   align-items: center;
+  min-height: 100vh; */
+}
+
+.main-desc {
+  flex: 2;
+  padding: 20px;
+  max-width: 800px;
+  text-align: center;
+}
+
+.main-desc h1 {
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.main-desc p {
+  font-weight: 300;
+  font-size: 30px;
+  margin-bottom: 40px;
+  line-height: 1.4;
+}
+
+.btn-container {
+  gap: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.header-img img {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .main-desc h1 {
+    font-size: 48px;
+  }
+
+  .main-desc p {
+    font-size: 24px;
+  }
+
+  .red-btn {
+    font-size: 24px;
+    width: 180px;
+    padding: 12px 16px;
+  }
+
+  .btn-container {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main .d-flex {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .main-desc {
+    order: 1;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .header-img {
+    order: 2;
+    padding: 10px;
+  }
+
+  .main-desc h1 {
+    font-size: 36px;
+  }
+
+  .main-desc p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .red-btn {
+    font-size: 20px;
+    width: 160px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .main {
+    padding: 15px 0;
+  }
+
+  .main-desc h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .main-desc p {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .btn-container {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .red-btn {
+    font-size: 18px;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 20px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+  .main-desc h1 {
+    font-size: 24px;
+  }
+
+  .main-desc p {
+    font-size: 16px;
+  }
+
+  .red-btn {
+    font-size: 16px;
+  }
+}
+
+/* Filter Box Styles */
+.filter-box {
+  margin-top: 40px;
+  padding: 20px 0;
+  position: absolute;
+  top: 70%;
+  width: 100%;
+}
+
+.car-search-form {
+  background: #e02027;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.form-label {
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+.price-range-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+}
+
+.price-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.price-slider {
+  width: 100%;
+  margin: 0;
+  accent-color: #e53e3e;
+}
+
+.price-slider::-webkit-slider-thumb {
+  background: #e53e3e;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.price-slider::-moz-range-thumb {
+  background: #e53e3e;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-search {
+  background: #000;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  height: 48px;
+}
+
+.btn-search:hover:not(:disabled) {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-search:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-desc h1 {
+    font-size: 48px;
+  }
+
+  .main-desc p {
+    font-size: 24px;
+  }
+
+  .red-btn {
+    font-size: 24px;
+    width: 180px;
+    padding: 12px 16px;
+  }
+
+  .btn-container {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    /* min-height: 60vh; */
+  }
+
+  .main-desc {
+    order: 1;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .header-img {
+    order: 2;
+    padding: 10px;
+  }
+
+  .main-desc h1 {
+    font-size: 36px;
+  }
+
+  .main-desc p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .red-btn {
+    font-size: 20px;
+    width: 160px;
+    padding: 12px 16px;
+  }
+
+  .car-search-form {
+    padding: 20px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .custom-select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .btn-search {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-desc h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .main-desc p {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .btn-container {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .red-btn {
+    font-size: 18px;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 20px;
+  }
+
+  .car-search-form {
+    padding: 15px;
+  }
+
+  .price-display {
+    font-size: 12px;
+  }
+}
+
+.service {
+  margin-top: 10rem;
+    @media (max-width:992px){
+      margin-top: 20rem;
+    }
+    @media (max-width:767px){
+      margin-top: 40rem;
+    }
+  h2 {
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+  }
+  .service-container {
+    padding: 20px 0;
+   
+    .row {
+      gap: 60px 0;
+      @media (max-width:767px){
+      gap: 30px 0;
+    }
+      .service-list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 30px;
+        gap: 19px;
+        border-radius: 18px;
+        height: 140px;
+        color: #fff;
+        background-color: #000;
+        font-size: 30px;
+        font-weight: 700;
+         @media (min-width: 768px) and (max-width: 1200px) {
+          font-size: 20px;
+        }
+        .service-icons {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80px;
+          height: 80px;
+          border-radius: 50px;
+          padding: 10px;
+          background-color: #fff;
+           @media (min-width: 768px) and (max-width: 1200px) {
+          width: 60px;
+          height: 60px;
+        }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@use "bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+.red-btn {
+  border-radius: 12px;
+  width: 222px;
+  background-color: #e02027;
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-out;
+}
+
+.red-btn:hover {
+  background-color: #c01e24;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(224, 32, 39, 0.3);
+}
+
+.p-slider-range {
+  background-color: #FF8C90 !important;
+}
+.p-slider-handle{
+  background-color: #FF8C90 !important;
+  &::before{
+    background-color: #FF8C90 !important;
+  }
+}
