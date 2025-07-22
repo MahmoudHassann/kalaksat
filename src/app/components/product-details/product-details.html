@@ -1,0 +1,167 @@
+<div class="car-details-container" *ngIf="car; else loadingTemplate">
+      <!-- Header -->
+      <div class="car-header">
+        <h1 class="car-title">{{ car.title }}</h1>
+      </div>
+
+      <!-- Main Content -->
+      <div class="row">
+        <!-- Gallery Section -->
+        <div class="col-lg-8 col-md-12">
+          <div class="gallery-container">
+            <p-galleria 
+              [value]="car.images" 
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '100%' }"
+              [showThumbnails]="true"
+              [showIndicators]="false"
+              [showItemNavigators]="true"
+              [circular]="true"
+              [autoPlay]="false"
+              [thumbnailsPosition]="'bottom'"
+              [numVisible]="6">
+              
+              <ng-template pTemplate="item" let-item>
+                <img 
+                  [src]="item.url" 
+                  [alt]="item.alt"
+                  class="gallery-main-image" />
+              </ng-template>
+              
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="gallery-thumbnail-wrapper">
+                  <img 
+                    [src]="item.thumbnailUrl || item.url" 
+                    [alt]="item.alt"
+                    class="gallery-thumbnail" />
+                </div>
+              </ng-template>
+            </p-galleria>
+
+            <!-- Gallery Actions -->
+            <div class="gallery-actions">
+              <button type="button" class="btn btn-outline-secondary">
+                <i class="pi pi-360"></i>
+                View 360
+              </button>
+              <button type="button" class="btn btn-outline-secondary">
+                <i class="pi pi-th-large"></i>
+                Gallery {{ car.images.length }}
+              </button>
+              <button type="button" class="btn btn-outline-warning">
+                <i class="pi pi-exclamation-triangle"></i>
+                Imperfections
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications Section -->
+        <div class="col-lg-4 col-md-12">
+          <div class="specifications-container">
+            <div class="specs-grid">
+              <div 
+                class="spec-item" 
+                *ngFor="let spec of car.specifications; let i = index"
+                [class.red-icon]="i % 2 === 0">
+                <div class="spec-icon">
+                  <i [class]="'pi ' + spec.icon"></i>
+                </div>
+                <div class="spec-content">
+                  <h6>{{ spec.label }}</h6>
+                  <p class="spec-value">{{ spec.value }}</p>
+                  <small *ngIf="spec.unit">({{ spec.unit }})</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="pricing-section">
+              <h5>Pricing</h5>
+              <div class="price-display">
+                <span class="currency">{{ car.currency }}</span>
+                <span class="price">{{ formatPrice(car.price) }}</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button type="button" class="btn btn-danger btn-lg">
+                Book Visit
+              </button>
+              <button type="button" class="btn btn-outline-danger btn-lg">
+                Financing
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs Section -->
+      <!-- <div class="tabs-section">
+        <p-tabpanels>
+          <p-tabpanel header="Car Summary">
+            <div class="car-summary-content">
+              <div class="row">
+                <div 
+                  class="col-md-4 col-sm-6 col-12 summary-item" 
+                  *ngFor="let feature of car.tabs.carSummary">
+                  <div class="feature-card">
+                    <div class="feature-icon red-icon">
+                      <i [class]="'pi ' + feature.icon"></i>
+                    </div>
+                    <div class="feature-content">
+                      <h6>{{ feature.title }}</h6>
+                      <p>{{ feature.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-tabpanel>
+          
+          <p-tabpanel header="Overview">
+            <div class="tab-content">
+              <p>{{ car.tabs.overview }}</p>
+            </div>
+          </p-tabpanel>
+          
+          <p-tabpanel header="Inspection">
+            <div class="tab-content">
+              <p>Inspection details will be displayed here.</p>
+            </div>
+          </p-tabpanel>
+          
+          <p-tabpanel header="Features">
+            <div class="tab-content">
+              <ul>
+                <li *ngFor="let feature of car.tabs.features">{{ feature }}</li>
+              </ul>
+            </div>
+          </p-tabpanel>
+          
+          <p-tabpanel header="Financing">
+            <div class="tab-content">
+              <p>Financing options and details will be displayed here.</p>
+            </div>
+          </p-tabpanel>
+        </p-tabpanels>
+      </div>-->
+    </div> 
+
+    <ng-template #loadingTemplate>
+      <div class="loading-container">
+        <p-skeleton height="3rem" class="mb-3"></p-skeleton>
+        <div class="row">
+          <div class="col-lg-8">
+            <p-skeleton height="400px" class="mb-3"></p-skeleton>
+            <div class="d-flex gap-2">
+              <p-skeleton height="80px" width="80px" *ngFor="let i of [1,2,3,4,5,6]"></p-skeleton>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <p-skeleton height="300px"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </ng-template>

@@ -369,12 +369,12 @@
 
 .service {
   margin-top: 10rem;
-    @media (max-width:992px){
-      margin-top: 20rem;
-    }
-    @media (max-width:767px){
-      margin-top: 40rem;
-    }
+  @media (max-width: 992px) {
+    margin-top: 20rem;
+  }
+  @media (max-width: 767px) {
+    margin-top: 40rem;
+  }
   h2 {
     font-weight: 700;
     font-size: 40px;
@@ -382,12 +382,12 @@
   }
   .service-container {
     padding: 20px 0;
-   
+
     .row {
       gap: 60px 0;
-      @media (max-width:767px){
-      gap: 30px 0;
-    }
+      @media (max-width: 767px) {
+        gap: 30px 0;
+      }
       .service-list {
         display: flex;
         flex-direction: row;
@@ -400,7 +400,7 @@
         background-color: #000;
         font-size: 30px;
         font-weight: 700;
-         @media (min-width: 768px) and (max-width: 1200px) {
+        @media (min-width: 768px) and (max-width: 1200px) {
           font-size: 20px;
         }
         .service-icons {
@@ -412,10 +412,114 @@
           border-radius: 50px;
           padding: 10px;
           background-color: #fff;
-           @media (min-width: 768px) and (max-width: 1200px) {
-          width: 60px;
-          height: 60px;
+          @media (min-width: 768px) and (max-width: 1200px) {
+            width: 60px;
+            height: 60px;
+          }
         }
+      }
+    }
+  }
+}
+
+.section-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  gap: 15px;
+}
+
+/* Price Filter Styles */
+.price-filter-container {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.filter-pills-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.filter-pills-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pills {
+  min-width: max-content;
+  padding: 0 0.5rem;
+  gap: 16px;
+}
+
+.filter-pill {
+  border: 1px solid #6C6B6B;
+  background-color: white;
+  color: #6C6B6B;
+  border-radius: 18px;
+  padding: 10px 30px 10px 30px;
+  font-weight: 300;
+  transition: all 0.3s ease-out;
+  white-space: nowrap;
+  position: relative;
+  min-width: fit-content;
+  &:focus{
+    box-shadow: none!important;
+  }
+}
+
+.filter-pill:hover {
+  border-color: #E02027;
+  color: #E02027;
+  background-color: #f8f9fa;
+}
+
+.filter-pill.active {
+  border-color: #E02027;
+  color: #E02027;
+}
+
+.filter-pill.active:hover {
+  background-color: #E02027;
+  color: white;
+}
+
+.filter-pill:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.section-box {
+  .section-title {
+    .header {
+      h2 {
+        font-size: 40px;
+        font-weight: 700;
+      }
+      p {
+        font-size: 30px;
+        font-weight: 300;
+      }
+    }
+    .show-btn{
+      .btn{
+        transition: all .3s ease-out;
+        svg{
+          path{
+            transition: all .3s ease-out;
+          }
+        }
+        &:hover{
+          background-color: #e53e3e;
+          color: #fff !important;
+          svg{
+            path{
+              fill: #fff!important;
+            }
+          }
         }
       }
     }

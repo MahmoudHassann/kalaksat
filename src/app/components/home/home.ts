@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, EventEmitter, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,FormsModule  } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
+import { CarCardData, PriceFilter } from '../product-card/product';
+import { ProductCard } from "../product-card/product-card";
+import { LoanCalculator } from "../loan-calculator/loan-calculator";
 
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule,CommonModule,SliderModule,FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, SliderModule, FormsModule, ProductCard, LoanCalculator],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -16,6 +19,51 @@ searchForm!: FormGroup;
   minPrice = 250000;
   maxPrice = 1000000;
   rangeValues: number[] = [250000, 1000000];
+
+  cars: CarCardData[] = [
+    {
+      image: 'img/product.png',
+      imageAlt: 'Toyota 2022',
+      status: 'fully refurbished',
+      brand: 'Toyota',
+      year: 2022,
+      category: '1st Category',
+      mileage: '55,500 KM',
+      originalPrice: 650000,
+      discountedPrice: 500000,
+      discountAmount: '35k off',
+      monthlyPayment: 'from 11,110/mo',
+      transmission: 'Automatic'
+    },
+    {
+      image: 'img/product.png',
+      imageAlt: 'BMW 2023',
+      status: 'certified pre-owned',
+      brand: 'BMW',
+      year: 2023,
+      category: 'Premium',
+      mileage: '25,000 KM',
+      originalPrice: 850000,
+      discountedPrice: 780000,
+      discountAmount: '70k off',
+      monthlyPayment: 'from 15,500/mo',
+      transmission: 'Automatic'
+    },
+    {
+      image: 'img/product.png',
+      imageAlt: 'Mercedes 2021',
+      status: 'like new',
+      brand: 'Mercedes',
+      year: 2021,
+      category: 'Luxury',
+      mileage: '40,000 KM',
+      originalPrice: 1200000,
+      discountedPrice: 1050000,
+      discountAmount: '150k off',
+      monthlyPayment: 'from 20,800/mo',
+      transmission: 'Automatic'
+    }
+  ];
   
   // Data arrays
   carBrands = [
@@ -72,6 +120,31 @@ searchForm!: FormGroup;
     { id: 'convertible', name: 'Convertible' },
     { id: 'pickup', name: 'Pickup Truck' }
   ];
+  filters: PriceFilter[] = [
+    { id: 'all', label: 'All', value: 'all' },
+    { id: 'below-200k', label: 'Below 200k', value: 'below-200k', maxPrice: 200000 },
+    { id: '200k-400k', label: 'From 200k - 400k', value: '200k-400k', minPrice: 200000, maxPrice: 400000 },
+    { id: '400k-800k', label: 'From 400k - 800k', value: '400k-800k', minPrice: 400000, maxPrice: 800000 },
+    { id: '800k-1m', label: 'From 800k - 1M', value: '800k-1m', minPrice: 800000, maxPrice: 1000000 },
+    { id: 'above-1m', label: 'From 1M+', value: 'above-1m', minPrice: 1000000 }
+  ];
+ // Signal for the selected filter ID
+  selectedFilterId = signal<string | null>(null);
+
+  // Computed signal for selected filter object
+  selectedFilter = computed(() => {
+    return this.filters.find(f => f.id === this.selectedFilterId());
+  });
+
+  // Change selection
+  selectFilter(filter: PriceFilter): void {
+    this.selectedFilterId.set(filter.id);
+  }
+
+  // Track by ID
+  trackByFilterId(index: number, filter: PriceFilter): string {
+    return filter.id;
+  }
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.initializeForm();

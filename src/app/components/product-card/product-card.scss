@@ -1,0 +1,75 @@
+.car-card {
+      max-width: 424px;
+      margin: 0 auto;
+    }
+
+    .car-image {
+      height: 318px;
+      object-fit: cover;
+      background-color: #f8f9fa;
+    }
+
+    .status-badge {
+      background-color: #AFADAD;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 300;
+      padding: 5px 15px 5px 15px;
+      gap: 15px;
+    }
+
+    .discount-badge {
+      background-color: #dc3545;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+    }
+
+    .card {
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .pricing-section {
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 1rem;
+    }
+
+    .text-danger {
+      color: #dc3545 !important;
+    }
+
+    .small {
+      font-size: 0.875rem;
+    }
+    .footer-item{
+        gap: 5px;
+        justify-content: center;
+    }
+
+    @media (max-width: 576px) {
+      .car-card {
+        max-width: 100%;
+      }
+      
+      .card-body {
+        padding: 1rem !important;
+      }
+      
+      .row.gx-2 > .col-4 {
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .fs-4 {
+        font-size: 1.25rem !important;
+      }
+    }
