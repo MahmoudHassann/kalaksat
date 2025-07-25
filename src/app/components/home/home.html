@@ -275,9 +275,9 @@
 </div>
 
     <div class="row">
-      @for (car of cars; track $index) {
+      @for (car of cars; track car.id) {
       <div class="col-lg-4 col-md-6 mb-4">
-        <app-product-card [carData]="car"></app-product-card>
+        <app-product-card [carData]="car" [routerLink]="[`/product/${car.id}`]" ></app-product-card>
       </div>
       }
     </div>

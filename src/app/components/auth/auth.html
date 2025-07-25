@@ -1,0 +1,64 @@
+<div class="registration-container">
+  <h2 class="text-center">Klaksat</h2>
+
+  <div class="form-card">
+    <p-progressBar [value]="progress()" [showValue]="false"></p-progressBar>
+
+    <div *ngIf="step() === 1">
+      <h3>Enter your Email Address</h3>
+      <p class="description">Please verify your Email Address so that you can complete your registration</p>
+
+      <label for="phone">Email Address</label>
+      <input
+        id="phone"
+        pInputText
+        type="text"
+        placeholder="EX: example@gmail.com"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+      />
+
+      <button pButton label="Get OTP" [disabled]="!email()" class="btn-grey" (click)="nextStep()"></button>
+    </div>
+
+    <div *ngIf="step() === 2">
+      <h3>Enter the OTP</h3>
+      <p class="description">Please confirm your OTP so that you can complete your registration</p>
+
+      <label for="otp">OTP</label>
+      <p-inputOtp
+        [length]="6"
+        [ngModel]="otpCode()"
+        (ngModelChange)="onOtpChange($event)"
+        [class.error]="otpError()"
+        ></p-inputOtp>
+
+
+      <p class="otp-note">
+        <strong>CODE IS VALID FOR 5 MINUTES</strong><br />
+        Didn't get the code? <a (click)="resendOtp()">Resend</a>
+      </p>
+
+      <p *ngIf="otpError()" class="otp-error">The OTP you entered is not correct</p>
+
+      <button pButton label="Next" class="btn-red" [disabled]="otpCode().length !== 6" (click)="nextStep()"></button>
+    </div>
+
+    <div *ngIf="step() === 3">
+      <h3>Enter your name</h3>
+      <p class="description">Please enter your name so that you can complete your registration</p>
+
+      <label for="name">Name</label>
+      <input
+        id="name"
+        pInputText
+        type="text"
+        placeholder="Name"
+        [ngModel]="userName()"
+        (ngModelChange)="userName.set($event)"
+      />
+
+      <button pButton label="Confirm" class="btn-red" [disabled]="!userName()" (click)="nextStep()"></button>
+    </div>
+  </div>
+</div>

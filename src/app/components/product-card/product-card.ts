@@ -11,6 +11,7 @@ import { CarCardData } from './product';
 })
 export class ProductCard {
     @Input() carData: CarCardData = {
+    id:1,
     image: '/api/placeholder/300/200',
     imageAlt: 'Car image',
     status: 'fully refurbished',

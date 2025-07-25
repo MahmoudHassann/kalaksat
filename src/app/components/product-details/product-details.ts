@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { TabsModule } from 'primeng/tabs';
 import { ButtonModule } from 'primeng/button';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Skeleton } from 'primeng/skeleton';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from './product-service';
 import { Car } from '../product-card/product';
@@ -15,12 +15,12 @@ import { Car } from '../product-card/product';
     GalleriaModule,
     TabsModule,
     ButtonModule,
-    SkeletonModule],
+    Skeleton],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss'
 })
 export class ProductDetails {
- @Input() carId!: number;
+ carId!: number;
   
   car: Car | null = null;
   private destroy$ = new Subject<void>();
@@ -30,15 +30,15 @@ this.carId = 1;
   responsiveOptions = [
     {
       breakpoint: '1024px',
-      numVisible: 5
+      numVisible: 6
     },
     {
       breakpoint: '768px',
-      numVisible: 3
+      numVisible: 6
     },
     {
       breakpoint: '560px',
-      numVisible: 2
+      numVisible: 6
     }
   ];
 
@@ -58,8 +58,6 @@ this.carId = 1;
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (car) => {
-          console.log(car);
-          
           this.car = car;
         },
         error: (error) => {

@@ -6,7 +6,7 @@
 
           <!-- Logo -->
           <a class="navbar-brand me-3" href="#">
-            <img src="img/logo-brand.png" alt="kalaksat-logo" class="img-fluid w-50">
+            <img src="img/logo-brand.png" alt="kalaksat-logo" class="img-fluid w-50 w-md-25">
           </a>
 
           <!-- Nav Links (Desktop) -->
@@ -60,7 +60,7 @@
             </button>
 
             <!-- Sign In -->
-            <button class="sign-in-button" (click)="signIn()">
+            <button class="sign-in-button" [routerLinkActive]="'active'" routerLink="/login">
               <div class="user-icon">
                 <!-- User SVG -->
                 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">

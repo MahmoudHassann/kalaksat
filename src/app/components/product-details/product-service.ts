@@ -18,39 +18,39 @@ export class ProductService {
     images: [
       {
         id: 1,
-        url: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/main-car.png',
         alt: 'Volvo EX30 Main View',
-        thumbnailUrl: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car1.png'
       },
       {
         id: 2,
-        url: 'https://images.pexels.com/photos/3729458/pexels-photo-3729458.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/car2.jpg',
         alt: 'Volvo EX30 Side View',
-        thumbnailUrl: 'https://images.pexels.com/photos/3729458/pexels-photo-3729458.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car2.jpg'
       },
       {
         id: 3,
-        url: 'https://images.pexels.com/photos/3729245/pexels-photo-3729245.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/car3.jpg',
         alt: 'Volvo EX30 Interior',
-        thumbnailUrl: 'https://images.pexels.com/photos/3729245/pexels-photo-3729245.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car3.jpg'
       },
       {
         id: 4,
-        url: 'https://images.pexels.com/photos/3729460/pexels-photo-3729460.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/car4.jpg',
         alt: 'Volvo EX30 Rear View',
-        thumbnailUrl: 'https://images.pexels.com/photos/3729460/pexels-photo-3729460.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car4.jpg'
       },
       {
         id: 5,
-        url: 'https://images.pexels.com/photos/3729456/pexels-photo-3729456.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/car5.jpg',
         alt: 'Volvo EX30 Dashboard',
-        thumbnailUrl: 'https://images.pexels.com/photos/3729456/pexels-photo-3729456.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car5.jpg'
       },
       {
         id: 6,
-        url: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=800',
+        url: '/img/car6.jpg',
         alt: 'Volvo EX30 Engine',
-        thumbnailUrl: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=150'
+        thumbnailUrl: '/img/car6.jpg'
       }
     ],
     specifications: [
@@ -80,7 +80,7 @@ export class ProductService {
 
   getCarById(id: number): Observable<Car> {
     // Simulate API call with delay
-    return of(this.mockData).pipe(delay(500));
+    return of(this.mockData);
   }
  
 }

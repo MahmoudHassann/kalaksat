@@ -1,0 +1,184 @@
+<div class="car-finance-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Own It Today,<br>Pay Tomorrow</h1>
+      <div class="hero-features">
+        <span class="feature">Minimal Down Payment</span>
+        <span class="feature">Instant & Easy Loan Approval</span>
+        <span class="feature">Extended Loan Tenor</span>
+        <span class="feature">Low EMIs, Flexible Duration</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <div class="finance-grid">
+        
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+          <p-card class="calculator-card">
+            <div class="card-header">
+              <h2>Discover the Best Payment Plan for You with Our Flexible Loan Calculator</h2>
+              <p>Calculate Your Monthly Installments, Choose Your Tenor and Plan Your Budget</p>
+              <div class="btn-group my-3">
+                <button class="btn" (click)="toggle('carPrice')" [ngClass]="{ 'active': isActive === 'carPrice' }">Car Price</button>
+                <button class="btn" (click)="toggle('monthlyInstallment')"  [ngClass]="{ 'active': isActive === 'monthlyInstallment' }">Monthly Installment</button>
+              </div>
+            </div>
+
+            <div class="calculator-content">
+              <!-- Car Price Slider -->
+              <div class="slider-group">
+                <label class="slider-label">Car Price</label>
+               <p-inputnumber [(ngModel)]="carPrice" inputId="currency-eg" mode="currency" currency="EGP" locale="en-US" />
+                <div class="slider-container mt-5">
+                  <p-slider 
+                    [(ngModel)]="carPrice" 
+                    [min]="minCarPrice" 
+                    [max]="maxCarPrice"
+                    [step]="5000"
+                    (onChange)="onCarPriceChange()"
+                    class="custom-slider">
+                  </p-slider>
+                    <!-- Slider Value Floating Label -->
+                    <div 
+                        class="slider-value-float" 
+                        [ngStyle]="{
+                        left: ((carPrice - minCarPrice) / (maxCarPrice - minCarPrice) * 100) + '%'
+                        }">
+                        {{ formatCurrency(carPrice || 0) }}
+                    </div>
+                  <div class="slider-range">
+                    <span>{{formatCurrency(minCarPrice || 0)}}</span>
+                    <span>{{formatCurrency(maxCarPrice || 0)}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Down Payment Slider (Percentage) isActive ==carPrice -->
+              <div class="slider-group">
+                  <div class="payment-info">
+                    <label class="slider-label">Down Payment</label>
+                  <span class="amount-display">{{formatCurrency(downPaymentAmount || 0)}}</span>
+                </div>
+                <div class="slider-container">
+                  <p-slider 
+                    [(ngModel)]="downPaymentPercentage" 
+                    [min]="minDownPaymentPercentage" 
+                    [max]="maxDownPaymentPercentage"
+                    [step]="5"
+                    (onChange)="onDownPaymentPercentageChange()"
+                    class="custom-slider percentage-slider">
+                  </p-slider>
+                  <div 
+                        class="slider-value-float" 
+                        [ngStyle]="{
+                        left: (((downPaymentPercentage - minDownPaymentPercentage) / (maxDownPaymentPercentage - minDownPaymentPercentage) * 100)) + '%'
+                        }">
+                        {{ downPaymentPercentage + '%' || 0 }}
+                    </div>
+                  <div class="slider-marks">
+                    <span class="mark" *ngFor="let mark of [0, 20, 40, 60, 80]"></span>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Loan Tenor Slider -->
+              <div class="slider-group">
+                <label class="slider-label">Loan Tenor</label>
+                <div class="slider-container">
+                  <p-slider 
+                    [(ngModel)]="loanTenor" 
+                    [min]="minLoanTenor" 
+                    [max]="maxLoanTenor"
+                    [step]="12"
+                    (onChange)="onLoanTenorChange()"
+                    class="custom-slider">
+                  </p-slider>
+                  <div 
+                        class="slider-value-float" 
+                        [ngStyle]="{
+                        left: (((loanTenor - minLoanTenor) / (maxLoanTenor - minLoanTenor) * 100)) + '%'
+                        }">
+                        {{ loanTenor + 'Month' || 0 }}
+                    </div>
+                  <div class="slider-marks">
+                    <span class="mark" *ngFor="let mark of [12, 24, 36, 48, 60, 72, 84]"></span>
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+
+        <!-- Monthly Installment Display -->
+        <div class="installment-section">
+          <p-card class="installment-card">
+            <div class="installment-content">
+              <h3>Monthly Installment</h3>
+              
+              <!-- Monthly Installment Input -->
+              <div class="installment-input-group">
+                <div class="text-start" style="color: #000; font-size: 40px;">
+                    {{formatCurrency(monthlyInstallmentInput)}}
+                </div>
+                
+              </div>
+
+              <p-button 
+                label="Apply For Financing" 
+                class="apply-btn"
+                (onClick)="applyForFinancing()">
+              </p-button>
+            </div>
+          </p-card>
+        </div>
+
+      </div>
+
+      <!-- Partners Section -->
+      <div class="partners-section">
+        <h2>Partners</h2>
+        <div class="partners-logos">
+          <div class="partner-logo">
+            <img src="/assets/images/valU-logo.png" alt="valU" *ngIf="false">
+            <div class="logo-placeholder">valU</div>
+          </div>
+          <div class="partner-logo">
+            <img src="/assets/images/mashreq-logo.png" alt="Mashreq Bank" *ngIf="false">
+            <div class="logo-placeholder">Mashreq Bank</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2>FAQS</h2>
+        <p-accordion value="0" class="custom-accordion">
+          <p-accordion-panel 
+            *ngFor="let faq of faqItems; let i = index"
+            [value]="i.toString()">
+            <p-accordion-header>{{faq.question}}</p-accordion-header>
+            <p-accordion-content>
+              <p class="m-0">{{faq.answer}}</p>
+            </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+        
+        <div class="see-more-container">
+          <p-button 
+            label="See More" 
+            class="see-more-btn"
+            [outlined]="true">
+          </p-button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

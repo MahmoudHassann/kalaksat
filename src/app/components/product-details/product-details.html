@@ -1,4 +1,4 @@
-<div class="car-details-container" *ngIf="car; else loadingTemplate">
+<div class="car-details-container" *ngIf="car && car != null; else loadingTemplate">
       <!-- Header -->
       <div class="car-header">
         <h1 class="car-title">{{ car.title }}</h1>
@@ -7,7 +7,7 @@
       <!-- Main Content -->
       <div class="row">
         <!-- Gallery Section -->
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-6 col-md-12">
           <div class="gallery-container">
             <p-galleria 
               [value]="car.images" 
@@ -40,16 +40,24 @@
 
             <!-- Gallery Actions -->
             <div class="gallery-actions">
-              <button type="button" class="btn btn-outline-secondary">
-                <i class="pi pi-360"></i>
+              <button type="button" class="btn btn_360">
+                <svg fill="#000000" height="44" width="44" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-48 -48 576.00 576.00" xml:space="preserve" stroke="#000000" stroke-width="3.3600000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="2.88"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M391.502,210.725c-5.311-1.52-10.846,1.555-12.364,6.865c-1.519,5.31,1.555,10.846,6.864,12.364 C431.646,243.008,460,261.942,460,279.367c0,12.752-15.51,26.749-42.552,38.402c-29.752,12.82-71.958,22.2-118.891,26.425 l-40.963-0.555c-0.047,0-0.093-0.001-0.139-0.001c-5.46,0-9.922,4.389-9.996,9.865c-0.075,5.522,4.342,10.06,9.863,10.134 l41.479,0.562c0.046,0,0.091,0.001,0.136,0.001c0.297,0,0.593-0.013,0.888-0.039c49.196-4.386,93.779-14.339,125.538-28.024 C470.521,316.676,480,294.524,480,279.367C480,251.424,448.57,227.046,391.502,210.725z"></path> <path d="M96.879,199.333c-5.522,0-10,4.477-10,10c0,5.523,4.478,10,10,10H138v41.333H96.879c-5.522,0-10,4.477-10,10 s4.478,10,10,10H148c5.523,0,10-4.477,10-10V148c0-5.523-4.477-10-10-10H96.879c-5.522,0-10,4.477-10,10s4.478,10,10,10H138 v41.333H96.879z"></path> <path d="M188.879,280.667h61.334c5.522,0,10-4.477,10-10v-61.333c0-5.523-4.477-10-10-10h-51.334V158H240c5.523,0,10-4.477,10-10 s-4.477-10-10-10h-51.121c-5.523,0-10,4.477-10,10v122.667C178.879,276.19,183.356,280.667,188.879,280.667z M198.879,219.333 h41.334v41.333h-41.334V219.333z"></path> <path d="M291.121,280.667h61.334c5.522,0,10-4.477,10-10V148c0-5.523-4.478-10-10-10h-61.334c-5.522,0-10,4.477-10,10v122.667 C281.121,276.19,285.599,280.667,291.121,280.667z M301.121,158h41.334v102.667h-41.334V158z"></path> <path d="M182.857,305.537c-3.567-4.216-9.877-4.743-14.093-1.176c-4.217,3.567-4.743,9.876-1.177,14.093l22.366,26.44 c-47.196-3.599-89.941-12.249-121.37-24.65C37.708,308.06,20,293.162,20,279.367c0-16.018,23.736-33.28,63.493-46.176 c5.254-1.704,8.131-7.344,6.427-12.598c-1.703-5.253-7.345-8.13-12.597-6.427c-23.129,7.502-41.47,16.427-54.515,26.526 C7.674,252.412,0,265.423,0,279.367c0,23.104,21.178,43.671,61.242,59.48c32.564,12.849,76.227,21.869,124.226,25.758 l-19.944,22.104c-3.7,4.1-3.376,10.424,0.725,14.123c1.912,1.726,4.308,2.576,6.696,2.576c2.731,0,5.453-1.113,7.427-3.301 l36.387-40.325c1.658-1.837,2.576-4.224,2.576-6.699v-0.764c0-2.365-0.838-4.653-2.365-6.458L182.857,305.537z"></path> <path d="M381.414,137.486h40.879c5.522,0,10-4.477,10-10V86.592c0-5.523-4.478-10-10-10h-40.879c-5.522,0-10,4.477-10,10v40.894 C371.414,133.009,375.892,137.486,381.414,137.486z M391.414,96.592h20.879v20.894h-20.879V96.592z"></path> </g> </g> </g> </g></svg>
+
                 View 360
               </button>
-              <button type="button" class="btn btn-outline-secondary">
-                <i class="pi pi-th-large"></i>
-                Gallery {{ car.images.length }}
+              <button type="button" class="btn gallery">
+               <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.4992 12.5144C22.9432 12.5144 23.3689 12.338 23.6828 12.0241C23.9967 11.7102 24.1731 11.2844 24.1731 10.8405C24.1731 10.3966 23.9967 9.97085 23.6828 9.65694C23.3689 9.34304 22.9432 9.16669 22.4992 9.16669C22.0553 9.16669 21.6296 9.34304 21.3156 9.65694C21.0017 9.97085 20.8254 10.3966 20.8254 10.8405C20.8254 11.2844 21.0017 11.7102 21.3156 12.0241C21.6296 12.338 22.0553 12.5144 22.4992 12.5144ZM33.6606 12.5144C33.8804 12.5144 34.098 12.4711 34.3011 12.3869C34.5042 12.3028 34.6887 12.1795 34.8441 12.0241C34.9996 11.8687 35.1229 11.6841 35.207 11.4811C35.2911 11.278 35.3344 11.0603 35.3344 10.8405C35.3344 10.6207 35.2911 10.4031 35.207 10.2C35.1229 9.99689 34.9996 9.81237 34.8441 9.65694C34.6887 9.50151 34.5042 9.37822 34.3011 9.2941C34.098 9.20998 33.8804 9.16669 33.6606 9.16669C33.2166 9.16669 32.7909 9.34304 32.477 9.65694C32.1631 9.97085 31.9867 10.3966 31.9867 10.8405C31.9867 11.2844 32.1631 11.7102 32.477 12.0241C32.7909 12.338 33.2166 12.5144 33.6606 12.5144ZM11.3379 12.5144C11.5577 12.5144 11.7754 12.4711 11.9784 12.3869C12.1815 12.3028 12.366 12.1795 12.5215 12.0241C12.6769 11.8687 12.8002 11.6841 12.8843 11.4811C12.9684 11.278 13.0117 11.0603 13.0117 10.8405C13.0117 10.6207 12.9684 10.4031 12.8843 10.2C12.8002 9.99689 12.6769 9.81237 12.5215 9.65694C12.366 9.50151 12.1815 9.37822 11.9784 9.2941C11.7754 9.20998 11.5577 9.16669 11.3379 9.16669C10.894 9.16669 10.4682 9.34304 10.1543 9.65694C9.84041 9.97085 9.66406 10.3966 9.66406 10.8405C9.66406 11.2844 9.84041 11.7102 10.1543 12.0241C10.4682 12.338 10.894 12.5144 11.3379 12.5144ZM22.4992 23.6739C22.9432 23.6739 23.3689 23.4975 23.6828 23.1836C23.9967 22.8697 24.1731 22.4439 24.1731 22C24.1731 21.5561 23.9967 21.1303 23.6828 20.8164C23.3689 20.5025 22.9432 20.3262 22.4992 20.3262C22.0553 20.3262 21.6296 20.5025 21.3156 20.8164C21.0017 21.1303 20.8254 21.5561 20.8254 22C20.8254 22.4439 21.0017 22.8697 21.3156 23.1836C21.6296 23.4975 22.0553 23.6739 22.4992 23.6739ZM33.6606 23.6739C34.1045 23.6739 34.5302 23.4975 34.8441 23.1836C35.158 22.8697 35.3344 22.4439 35.3344 22C35.3344 21.5561 35.158 21.1303 34.8441 20.8164C34.5302 20.5025 34.1045 20.3262 33.6606 20.3262C33.2166 20.3262 32.7909 20.5025 32.477 20.8164C32.1631 21.1303 31.9867 21.5561 31.9867 22C31.9867 22.4439 32.1631 22.8697 32.477 23.1836C32.7909 23.4975 33.2166 23.6739 33.6606 23.6739ZM11.3379 23.6739C11.7818 23.6739 12.2076 23.4975 12.5215 23.1836C12.8354 22.8697 13.0117 22.4439 13.0117 22C13.0117 21.5561 12.8354 21.1303 12.5215 20.8164C12.2076 20.5025 11.7818 20.3262 11.3379 20.3262C10.894 20.3262 10.4682 20.5025 10.1543 20.8164C9.84041 21.1303 9.66406 21.5561 9.66406 22C9.66406 22.4439 9.84041 22.8697 10.1543 23.1836C10.4682 23.4975 10.894 23.6739 11.3379 23.6739ZM22.4992 34.8334C22.9432 34.8334 23.3689 34.657 23.6828 34.3431C23.9967 34.0292 24.1731 33.6034 24.1731 33.1595C24.1731 32.7156 23.9967 32.2898 23.6828 31.9759C23.3689 31.662 22.9432 31.4857 22.4992 31.4857C22.0553 31.4857 21.6296 31.662 21.3156 31.9759C21.0017 32.2898 20.8254 32.7156 20.8254 33.1595C20.8254 33.6034 21.0017 34.0292 21.3156 34.3431C21.6296 34.657 22.0553 34.8334 22.4992 34.8334ZM33.6606 34.8334C34.1045 34.8334 34.5302 34.657 34.8441 34.3431C35.158 34.0292 35.3344 33.6034 35.3344 33.1595C35.3344 32.7156 35.158 32.2898 34.8441 31.9759C34.5302 31.662 34.1045 31.4857 33.6606 31.4857C33.2166 31.4857 32.7909 31.662 32.477 31.9759C32.1631 32.2898 31.9867 32.7156 31.9867 33.1595C31.9867 33.6034 32.1631 34.0292 32.477 34.3431C32.7909 34.657 33.2166 34.8334 33.6606 34.8334ZM11.3379 34.8334C11.7818 34.8334 12.2076 34.657 12.5215 34.3431C12.8354 34.0292 13.0117 33.6034 13.0117 33.1595C13.0117 32.7156 12.8354 32.2898 12.5215 31.9759C12.2076 31.662 11.7818 31.4857 11.3379 31.4857C10.894 31.4857 10.4682 31.662 10.1543 31.9759C9.84041 32.2898 9.66406 32.7156 9.66406 33.1595C9.66406 33.6034 9.84041 34.0292 10.1543 34.3431C10.4682 34.657 10.894 34.8334 11.3379 34.8334Z" stroke="black" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+                Gallery <span style="border-radius: 50px; padding: 5px; background-color: #EEEDED; width: 36px; height: 34px;">{{ car.images.length }}</span>
               </button>
-              <button type="button" class="btn btn-outline-warning">
-                <i class="pi pi-exclamation-triangle"></i>
+              <button type="button" class="btn imperfictions">
+                <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.1678 18.3333H23.8345V27.5H20.1678V18.3333ZM20.166 29.3333H23.8327V33H20.166V29.3333Z" fill="black"/>
+<path d="M25.2419 7.69999C24.6039 6.49916 23.3609 5.75299 22.0006 5.75299C20.6403 5.75299 19.3973 6.49916 18.7593 7.70182L5.30626 33.1173C5.00844 33.6757 4.86097 34.3019 4.87833 34.9344C4.89568 35.567 5.07727 36.1842 5.40526 36.7253C5.72865 37.2692 6.18859 37.7191 6.73947 38.0304C7.29034 38.3417 7.91302 38.5036 8.54576 38.5H35.4554C36.7534 38.5 37.9286 37.8363 38.5978 36.7253C38.9257 36.1842 39.1073 35.567 39.1247 34.9344C39.142 34.3019 38.9946 33.6757 38.6968 33.1173L25.2419 7.69999ZM8.54576 34.8333L22.0006 9.41782L35.4646 34.8333H8.54576Z" fill="black"/>
+</svg>
+
                 Imperfections
               </button>
             </div>
@@ -57,7 +65,7 @@
         </div>
 
         <!-- Specifications Section -->
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-6 col-md-12">
           <div class="specifications-container">
             <div class="specs-grid">
               <div 
@@ -86,10 +94,10 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-              <button type="button" class="btn btn-danger btn-lg">
+              <button type="button" class="btn btn-danger btn-lg" style="flex: 1;">
                 Book Visit
               </button>
-              <button type="button" class="btn btn-outline-danger btn-lg">
+              <button type="button" class="btn btn-outline-danger btn-lg" style="flex: 1;">
                 Financing
               </button>
             </div>
@@ -98,70 +106,97 @@
       </div>
 
       <!-- Tabs Section -->
-      <!-- <div class="tabs-section">
-        <p-tabpanels>
-          <p-tabpanel header="Car Summary">
-            <div class="car-summary-content">
-              <div class="row">
-                <div 
-                  class="col-md-4 col-sm-6 col-12 summary-item" 
-                  *ngFor="let feature of car.tabs.carSummary">
-                  <div class="feature-card">
-                    <div class="feature-icon red-icon">
-                      <i [class]="'pi ' + feature.icon"></i>
-                    </div>
-                    <div class="feature-content">
-                      <h6>{{ feature.title }}</h6>
-                      <p>{{ feature.description }}</p>
-                    </div>
-                  </div>
+      <div class="tabs-section">
+  <p-tabs value="0">
+    <!-- Tab Headers -->
+    <p-tablist>
+      <p-tab value="0">Car Summary</p-tab>
+      <p-tab value="1">Overview</p-tab>
+      <p-tab value="2">Inspection</p-tab>
+      <p-tab value="3">Features</p-tab>
+      <p-tab value="4">Financing</p-tab>
+    </p-tablist>
+
+    <!-- Tab Panels -->
+    <p-tabpanels>
+      <!-- Car Summary -->
+      <p-tabpanel value="0">
+        <div class="car-summary-content">
+          <div class="row">
+            <div
+              class="col-md-4 col-sm-6 col-12 summary-item"
+              *ngFor="let feature of car?.tabs?.carSummary"
+            >
+              <div class="feature-card">
+                <div class="feature-icon red-icon">
+                  <i [class]="'pi ' + feature.icon"></i>
+                </div>
+                <div class="feature-content">
+                  <h6>{{ feature.title }}</h6>
+                  <p>{{ feature.description }}</p>
                 </div>
               </div>
             </div>
-          </p-tabpanel>
-          
-          <p-tabpanel header="Overview">
-            <div class="tab-content">
-              <p>{{ car.tabs.overview }}</p>
-            </div>
-          </p-tabpanel>
-          
-          <p-tabpanel header="Inspection">
-            <div class="tab-content">
-              <p>Inspection details will be displayed here.</p>
-            </div>
-          </p-tabpanel>
-          
-          <p-tabpanel header="Features">
-            <div class="tab-content">
-              <ul>
-                <li *ngFor="let feature of car.tabs.features">{{ feature }}</li>
-              </ul>
-            </div>
-          </p-tabpanel>
-          
-          <p-tabpanel header="Financing">
-            <div class="tab-content">
-              <p>Financing options and details will be displayed here.</p>
-            </div>
-          </p-tabpanel>
-        </p-tabpanels>
-      </div>-->
+          </div>
+        </div>
+      </p-tabpanel>
+
+      <!-- Overview -->
+      <p-tabpanel value="1">
+        <div class="tab-content">
+          <p>{{ car.tabs.overview }}</p>
+        </div>
+      </p-tabpanel>
+
+      <!-- Inspection -->
+      <p-tabpanel value="2">
+        <div class="tab-content">
+          <p *ngIf="car?.tabs?.inspection?.length; else noInspection">
+            <!-- Add inspection display here -->
+            {{ car.tabs.inspection }}
+          </p>
+          <ng-template #noInspection>
+            <p>Inspection details will be displayed here.</p>
+          </ng-template>
+        </div>
+      </p-tabpanel>
+
+      <!-- Features -->
+      <p-tabpanel value="3">
+        <div class="tab-content">
+          <ul>
+            <li *ngFor="let feature of car?.tabs?.features">{{ feature }}</li>
+          </ul>
+        </div>
+      </p-tabpanel>
+
+      <!-- Financing -->
+      <p-tabpanel value="4">
+        <div class="tab-content">
+          <p>Financing options and details will be displayed here.</p>
+        </div>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</div>
     </div> 
 
     <ng-template #loadingTemplate>
       <div class="loading-container">
-        <p-skeleton height="3rem" class="mb-3"></p-skeleton>
-        <div class="row">
+        <p-skeleton height="3rem" class="mb-3"/>
+        <div class="container">
+            <div class="row">
           <div class="col-lg-8">
-            <p-skeleton height="400px" class="mb-3"></p-skeleton>
+            <p-skeleton height="400px" class="mb-3"/>
             <div class="d-flex gap-2">
-              <p-skeleton height="80px" width="80px" *ngFor="let i of [1,2,3,4,5,6]"></p-skeleton>
+              <p-skeleton height="80px" width="80px" *ngFor="let i of [1,2,3,4,5,6]"/>
             </div>
           </div>
           <div class="col-lg-4">
-            <p-skeleton height="300px"></p-skeleton>
+            <p-skeleton height="300px"/>
           </div>
         </div>
+        </div>
+        
       </div>
     </ng-template>

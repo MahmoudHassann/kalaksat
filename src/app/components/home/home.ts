@@ -5,11 +5,12 @@ import { SliderModule } from 'primeng/slider';
 import { CarCardData, PriceFilter } from '../product-card/product';
 import { ProductCard } from "../product-card/product-card";
 import { LoanCalculator } from "../loan-calculator/loan-calculator";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule, CommonModule, SliderModule, FormsModule, ProductCard, LoanCalculator],
+  imports: [ReactiveFormsModule, CommonModule, SliderModule, FormsModule, ProductCard, LoanCalculator,RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -22,6 +23,7 @@ searchForm!: FormGroup;
 
   cars: CarCardData[] = [
     {
+      id:1,
       image: 'img/product.png',
       imageAlt: 'Toyota 2022',
       status: 'fully refurbished',
@@ -36,6 +38,7 @@ searchForm!: FormGroup;
       transmission: 'Automatic'
     },
     {
+      id:1,
       image: 'img/product.png',
       imageAlt: 'BMW 2023',
       status: 'certified pre-owned',
@@ -50,6 +53,7 @@ searchForm!: FormGroup;
       transmission: 'Automatic'
     },
     {
+      id:1,
       image: 'img/product.png',
       imageAlt: 'Mercedes 2021',
       status: 'like new',

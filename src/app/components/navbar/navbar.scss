@@ -94,6 +94,11 @@
   padding: 8px 35px 8px 0;
   border-radius: 50px;
   transition: background-color 0.3s ease;
+  &.active{
+    span{
+      color: #e02027;
+    }
+  }
 }
 
 .sign-in-button span {

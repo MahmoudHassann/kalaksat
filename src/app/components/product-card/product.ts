@@ -1,4 +1,5 @@
 export interface CarCardData {
+  id:number;
   image: string;
   imageAlt: string;
   status: string;

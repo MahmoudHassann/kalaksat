@@ -4,7 +4,6 @@
 @use "bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-
 * {
   padding: 0;
   margin: 0;
@@ -25,7 +24,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .red-btn:hover {
@@ -35,11 +34,116 @@ body {
 }
 
 .p-slider-range {
-  background-color: #FF8C90 !important;
+  background-color: #ff8c90 !important;
 }
-.p-slider-handle{
-  background-color: #FF8C90 !important;
-  &::before{
-    background-color: #FF8C90 !important;
+.p-slider-handle {
+  background-color: #ff8c90 !important;
+  &::before {
+    background-color: #ff8c90 !important;
+  }
+}
+
+.p-galleria-thumbnail-nav-button {
+  display: none !important;
+}
+.p-skeleton {
+  --p-skeleton-background: rgb(255 0 0 / 6%) !important;
+  --p-skeleton-animation-background: #dc35451c !important;
+}
+.p-galleria {
+  overflow: unset !important;
+  border-width: 0 !important;
+  border-radius: 0 !important;
+
+  .p-galleria-content {
+    gap: 30px;
+    .p-galleria-items-container {
+      border-radius: 12px;
+      padding: 0 30px;
+      box-shadow: 0px 0px 4px 0px #00000040;
+    }
+    .p-galleria-thumbnails-content {
+      background: transparent !important;
+      padding: 0 !important;
+      .p-galleria-thumbnail-items {
+        overflow: unset !important;
+        gap: 10px;
+
+        .p-galleria-thumbnail-item {
+          flex: 1 !important;
+        }
+      }
+      .p-galleria-thumbnail {
+        img {
+          width: 100%;
+          border-radius: 12px;
+          box-shadow: 0px 0px 4px 0px #00000040;
+        }
+      }
+    }
+  }
+}
+.p-card {
+  background: transparent !important;
+}
+.p-inputtext {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+.p-tablist-tab-list {
+  background: transparent !important;
+  border-style: none !important;
+}
+.p-tabpanels {
+  background: transparent !important;
+}
+.p-tablist-content {
+  flex-grow: 0;
+}
+.p-tab {
+  &:hover {
+    color: #e02027 !important;
+  }
+}
+.p-tab-active {
+  border-color: #e02027 !important;
+  color: #e02027 !important;
+}
+.p-tablist-active-bar {
+  background: #e02027 !important;
+}
+.p-accordionpanel{
+  border-style: none!important;
+  padding: 20px!important;
+}
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader{
+  color: #000!important;
+    background: #EEEDED!important;
+     border-radius: 12px 12px 0 0!important;
+}
+.p-accordionheader{
+   color: #000!important;
+  background: #EEEDED!important;
+  border-radius:12px!important;
+  padding: 30px!important;
+  
+}
+.p-accordioncontent-content{
+   color: #000!important;
+   background: #E0DDDD!important;
+   border-radius: 0 0 12px 12px!important;
+   
+}
+.p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled) > .p-accordionheader:hover {
+    color: #e02027!important;
+}
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader {
+     color: #e02027!important;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .w-md-25 {
+    width: 25% !important;
   }
 }
