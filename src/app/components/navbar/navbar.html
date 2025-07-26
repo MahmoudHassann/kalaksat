@@ -5,7 +5,7 @@
         <div class="d-flex align-items-center justify-content-between w-100 flex-lg-nowrap">
 
           <!-- Logo -->
-          <a class="navbar-brand me-3" href="#">
+          <a class="navbar-brand me-3" >
             <img src="img/logo-brand.png" alt="kalaksat-logo" class="img-fluid w-50 w-md-25">
           </a>
 
@@ -13,16 +13,16 @@
           <div class="collapse navbar-collapse order-2 order-lg-1 flex-grow-1 d-none d-lg-block" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="#" (click)="navigate('new-cars')">New Cars</a>
+                <a class="nav-link" >New Cars</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" (click)="navigate('used-cars')">Used Cars</a>
+                <a class="nav-link">Used Cars</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" (click)="navigate('about')">About Us</a>
+                <a class="nav-link">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" (click)="navigate('finance')">Finance</a>
+                <a class="nav-link" routerLink="/finance" routerLinkActive="active">Finance</a>
               </li>
             </ul>
           </div>
@@ -93,16 +93,16 @@
             <div class="mobile-nav-links">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="#" (click)="navigate('new-cars')">New Cars</a>
+                  <a class="nav-link"  (click)="closeModal()">New Cars</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" (click)="navigate('used-cars')">Used Cars</a>
+                  <a class="nav-link"  (click)="closeModal()">Used Cars</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" (click)="navigate('about')">About Us</a>
+                  <a class="nav-link"  (click)="closeModal()">About Us</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" (click)="navigate('finance')">Finance</a>
+                  <a class="nav-link" routerLink="/finance" routerLinkActive="active" (click)="closeModal()">Finance</a>
                 </li>
               </ul>
             </div>

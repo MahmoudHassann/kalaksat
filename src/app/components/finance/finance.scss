@@ -142,6 +142,10 @@ $border-gray: #e0e0e0;
                     color: #E02027;
                     background-color: #F9E5E5;
                 }
+                &:hover{
+                  color: #E02027;
+                  border-color: #E02027;
+                }
             }
           }
         }

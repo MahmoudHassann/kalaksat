@@ -24,20 +24,25 @@ import { InputNumberModule } from 'primeng/inputnumber';
 })
 export class Finance implements OnInit {
 isActive: 'carPrice' | 'monthlyInstallment' = 'carPrice';
+minMonthlyInstallment: number = 3000;
+maxMonthlyInstallment: number = 248000;
+monthlyInstallmentInput: number = 5000; // entered by user
+estimatedCarPrice: number = 0;
+
+
+downPaymentFixed: number = 0; // For monthlyInstallment mode
+minDownPaymentFixed: number = 0;
+maxDownPaymentFixed: number = 2500000;
   // Car price slider
-  carPrice: number = 175000;
-  minCarPrice: number = 50000;
-  maxCarPrice: number = 250000;
+  carPrice: number = 500000;
+  minCarPrice: number = 500000;
+  maxCarPrice: number = 3000000;
   
   // Down payment as percentage
   downPaymentPercentage: number = 40; // 40%
   minDownPaymentPercentage: number = 0;
-  maxDownPaymentPercentage: number = 80;
+  maxDownPaymentPercentage: number = 95;
   
-  // Monthly installment range with input
-  monthlyInstallmentInput: number = 2500;
-  minMonthlyInstallment: number = 1000;
-  maxMonthlyInstallment: number = 5000;
   
   // Loan tenor slider
   loanTenor: number = 48;
@@ -80,6 +85,15 @@ isActive: 'carPrice' | 'monthlyInstallment' = 'carPrice';
   onCarPriceChange(): void {
     this.calculateValues();
   }
+  onMonthlyInstallmentChange(): void {
+  const numberOfMonths = 60; // 5 years
+  const interestRate = 0.10; // 10% total simple interest
+
+  // Reverse formula
+  const estimatedPrice = (this.monthlyInstallmentInput * numberOfMonths) / (1 + interestRate);
+  this.estimatedCarPrice = Math.round(estimatedPrice);
+}
+
 
   onDownPaymentPercentageChange(): void {
     this.calculateValues();
@@ -91,33 +105,36 @@ isActive: 'carPrice' | 'monthlyInstallment' = 'carPrice';
   }
 
   calculateValues(): void {
-    // Calculate down payment amount from percentage
+  if (this.isActive === 'carPrice') {
     this.downPaymentAmount = (this.carPrice * this.downPaymentPercentage) / 100;
-    
-    // Calculate loan amount
-    this.loanAmount = this.carPrice - this.downPaymentAmount;
-    
-    if (this.loanAmount <= 0) {
-      this.calculatedMonthlyInstallment = 0;
-      return;
-    }
-
-    // Calculate monthly installment based on loan amount and tenor
-    const annualRate = 0.05;
-    const monthlyRate = annualRate / 12;
-    const numberOfPayments = this.loanTenor;
-    
-    if (monthlyRate === 0) {
-      this.calculatedMonthlyInstallment = this.loanAmount / numberOfPayments;
-    } else {
-      this.calculatedMonthlyInstallment = this.loanAmount * 
-        (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
-        (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-    }
-    
-    // Update the input field with calculated value
-    this.monthlyInstallmentInput = Math.round(this.calculatedMonthlyInstallment);
+  } else {
+    this.downPaymentAmount = this.downPaymentFixed;
   }
+
+  this.loanAmount = this.carPrice - this.downPaymentAmount;
+
+  if (this.loanAmount <= 0) {
+    this.calculatedMonthlyInstallment = 0;
+    return;
+  }
+
+  const annualRate = 0.05;
+  const monthlyRate = annualRate / 12;
+  const numberOfPayments = this.loanTenor;
+
+  if (monthlyRate === 0) {
+    this.calculatedMonthlyInstallment = this.loanAmount / numberOfPayments;
+  } else {
+    this.calculatedMonthlyInstallment = this.loanAmount * 
+      (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+      (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  }
+
+  this.monthlyInstallmentInput = Math.round(this.calculatedMonthlyInstallment);
+}
+onDownPaymentFixedChange(): void {
+  this.calculateValues();
+}
  toggle(type: 'carPrice' | 'monthlyInstallment') {
   this.isActive = type;
 }

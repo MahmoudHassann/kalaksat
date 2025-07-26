@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,8 @@ export class Navbar {
  searchQuery = signal('');
   isNavbarOpen = signal(false);
   isMobileSearchOpen = signal(false);
+
+  constructor(private _router:Router){}
 
   toggleNavbar() {
     this.isNavbarOpen.set(!this.isNavbarOpen());
@@ -36,9 +38,7 @@ export class Navbar {
     }, 150);
   }
 
-  navigate(section: string) {
-    console.log(`Navigating to: ${section}`);
-    // Add your navigation logic here
+  closeModal() {
     this.isNavbarOpen.set(false); // Close mobile menu
   }
 

@@ -16,7 +16,7 @@
   <div class="main-content">
     <div class="container">
       <div class="finance-grid">
-        
+
         <!-- Calculator Section -->
         <div class="calculator-section">
           <p-card class="calculator-card">
@@ -24,64 +24,88 @@
               <h2>Discover the Best Payment Plan for You with Our Flexible Loan Calculator</h2>
               <p>Calculate Your Monthly Installments, Choose Your Tenor and Plan Your Budget</p>
               <div class="btn-group my-3">
-                <button class="btn" (click)="toggle('carPrice')" [ngClass]="{ 'active': isActive === 'carPrice' }">Car Price</button>
-                <button class="btn" (click)="toggle('monthlyInstallment')"  [ngClass]="{ 'active': isActive === 'monthlyInstallment' }">Monthly Installment</button>
+                <button class="btn me-2" (click)="toggle('carPrice')" [ngClass]="{ 'active': isActive === 'carPrice' }">Car
+                  Price</button>
+                <button class="btn" (click)="toggle('monthlyInstallment')"
+                  [ngClass]="{ 'active': isActive === 'monthlyInstallment' }">Monthly Installment</button>
               </div>
             </div>
 
             <div class="calculator-content">
               <!-- Car Price Slider -->
               <div class="slider-group">
-                <label class="slider-label">Car Price</label>
-               <p-inputnumber [(ngModel)]="carPrice" inputId="currency-eg" mode="currency" currency="EGP" locale="en-US" />
+                <label class="slider-label">
+                  {{ isActive === 'carPrice' ? 'Car Price' : 'Monthly Installment' }}
+                </label>
+                <!-- Display input and slider based on mode -->
+                <p-inputnumber *ngIf="isActive === 'carPrice'" [(ngModel)]="carPrice" inputId="currency-eg"
+                  mode="currency" currency="EGP" locale="en-US" [min]="minCarPrice" [max]="maxCarPrice" (ngModelChange)="onCarPriceChange()" />
+
+                <p-inputnumber *ngIf="isActive === 'monthlyInstallment'" [(ngModel)]="monthlyInstallmentInput"
+                  inputId="currency-eg" mode="currency" currency="EGP" locale="en-US" [min]="minMonthlyInstallment"
+                  [max]="maxMonthlyInstallment" (ngModelChange)="onMonthlyInstallmentChange()" />
+
+
                 <div class="slider-container mt-5">
-                  <p-slider 
-                    [(ngModel)]="carPrice" 
-                    [min]="minCarPrice" 
-                    [max]="maxCarPrice"
-                    [step]="5000"
-                    (onChange)="onCarPriceChange()"
-                    class="custom-slider">
+                  <p-slider *ngIf="isActive === 'carPrice'" [(ngModel)]="carPrice" [min]="minCarPrice"
+                    [max]="maxCarPrice" [step]="5000" (onChange)="onCarPriceChange()" class="custom-slider">
                   </p-slider>
-                    <!-- Slider Value Floating Label -->
-                    <div 
-                        class="slider-value-float" 
-                        [ngStyle]="{
-                        left: ((carPrice - minCarPrice) / (maxCarPrice - minCarPrice) * 100) + '%'
-                        }">
-                        {{ formatCurrency(carPrice || 0) }}
-                    </div>
+
+                  <p-slider *ngIf="isActive === 'monthlyInstallment'" [(ngModel)]="monthlyInstallmentInput"
+                    [min]="minMonthlyInstallment" [max]="maxMonthlyInstallment" [step]="1000"
+                    (onChange)="onMonthlyInstallmentChange()" class="custom-slider">
+                  </p-slider>
+                  <!-- Slider Value Floating Label -->
+                  <div class="slider-value-float" [ngStyle]="{
+    left: isActive === 'carPrice'
+      ? ((carPrice - minCarPrice) / (maxCarPrice - minCarPrice) * 100) + '%'
+      : ((monthlyInstallmentInput - minMonthlyInstallment) / (maxMonthlyInstallment - minMonthlyInstallment) * 100) + '%'
+  }">
+                    {{ formatCurrency(isActive === 'carPrice' ? carPrice : monthlyInstallmentInput) }}
+                  </div>
                   <div class="slider-range">
-                    <span>{{formatCurrency(minCarPrice || 0)}}</span>
-                    <span>{{formatCurrency(maxCarPrice || 0)}}</span>
+                    <span>{{isActive === 'carPrice'? formatCurrency(minCarPrice || 0) :
+                      formatCurrency(minMonthlyInstallment || 0)}}</span>
+                    <span>{{isActive === 'carPrice'? formatCurrency(maxCarPrice || 0) :
+                      formatCurrency(maxMonthlyInstallment || 0)}}</span>
                   </div>
                 </div>
               </div>
 
               <!-- Down Payment Slider (Percentage) isActive ==carPrice -->
+              <!-- Down Payment -->
               <div class="slider-group">
-                  <div class="payment-info">
-                    <label class="slider-label">Down Payment</label>
-                  <span class="amount-display">{{formatCurrency(downPaymentAmount || 0)}}</span>
+                <div class="payment-info" [ngStyle]="isActive === 'monthlyInstallment' ? { display: 'block' } : { display: 'flex' }">
+                  <label class="slider-label">Down Payment</label>
+                                  <p-inputnumber *ngIf="isActive === 'monthlyInstallment'" [(ngModel)]="downPaymentFixed"
+                  inputId="currency-eg" mode="currency" currency="EGP" locale="en-US" [min]="minDownPaymentFixed"
+                  [max]="maxDownPaymentFixed" (ngModelChange)="onDownPaymentPercentageChange()" />
+                  <span class="amount-display" *ngIf="isActive === 'carPrice'">
+                    {{ formatCurrency(downPaymentAmount || 0) }}
+                  </span>
                 </div>
+
                 <div class="slider-container">
-                  <p-slider 
-                    [(ngModel)]="downPaymentPercentage" 
-                    [min]="minDownPaymentPercentage" 
-                    [max]="maxDownPaymentPercentage"
-                    [step]="5"
-                    (onChange)="onDownPaymentPercentageChange()"
-                    class="custom-slider percentage-slider">
+                  <p-slider *ngIf="isActive === 'carPrice'" [(ngModel)]="downPaymentPercentage"
+                    [min]="minDownPaymentPercentage" [max]="maxDownPaymentPercentage" [step]="5"
+                    (onChange)="onDownPaymentPercentageChange()" class="custom-slider percentage-slider">
                   </p-slider>
-                  <div 
-                        class="slider-value-float" 
-                        [ngStyle]="{
-                        left: (((downPaymentPercentage - minDownPaymentPercentage) / (maxDownPaymentPercentage - minDownPaymentPercentage) * 100)) + '%'
-                        }">
-                        {{ downPaymentPercentage + '%' || 0 }}
-                    </div>
-                  <div class="slider-marks">
-                    <span class="mark" *ngFor="let mark of [0, 20, 40, 60, 80]"></span>
+
+                  <p-slider *ngIf="isActive === 'monthlyInstallment'" [(ngModel)]="downPaymentFixed"
+                    [min]="minDownPaymentFixed" [max]="maxDownPaymentFixed" [step]="10000"
+                    (onChange)="onDownPaymentFixedChange()" class="custom-slider">
+                  </p-slider>
+                  <!-- Slider Value Floating Label -->
+                  <div class="slider-value-float" [ngStyle]="{
+    left: isActive === 'carPrice'
+      ? ((downPaymentPercentage - minDownPaymentPercentage) / (maxDownPaymentPercentage - minDownPaymentPercentage) * 100) + '%'
+      : ((downPaymentFixed - minDownPaymentFixed) / (maxDownPaymentFixed - minDownPaymentFixed) * 100) + '%'
+  }">
+                    {{ isActive === 'carPrice' ? downPaymentPercentage + '%' : formatCurrency(downPaymentFixed || 0) }}
+                  </div>
+                  <div class="slider-range" *ngIf="isActive === 'monthlyInstallment'">
+                    <span>{{ formatCurrency(minDownPaymentFixed || 0)}}</span>
+                    <span>{{formatCurrency(maxDownPaymentFixed || 0)}}</span>
                   </div>
                 </div>
               </div>
@@ -91,25 +115,18 @@
               <div class="slider-group">
                 <label class="slider-label">Loan Tenor</label>
                 <div class="slider-container">
-                  <p-slider 
-                    [(ngModel)]="loanTenor" 
-                    [min]="minLoanTenor" 
-                    [max]="maxLoanTenor"
-                    [step]="12"
-                    (onChange)="onLoanTenorChange()"
-                    class="custom-slider">
+                  <p-slider [(ngModel)]="loanTenor" [min]="minLoanTenor" [max]="maxLoanTenor" [step]="12"
+                    (onChange)="onLoanTenorChange()" class="custom-slider">
                   </p-slider>
-                  <div 
-                        class="slider-value-float" 
-                        [ngStyle]="{
+                  <div class="slider-value-float" [ngStyle]="{
                         left: (((loanTenor - minLoanTenor) / (maxLoanTenor - minLoanTenor) * 100)) + '%'
                         }">
-                        {{ loanTenor + 'Month' || 0 }}
-                    </div>
+                    {{ loanTenor + 'Month' || 0 }}
+                  </div>
                   <div class="slider-marks">
                     <span class="mark" *ngFor="let mark of [12, 24, 36, 48, 60, 72, 84]"></span>
                   </div>
-                
+
                 </div>
               </div>
             </div>
@@ -117,23 +134,38 @@
         </div>
 
         <!-- Monthly Installment Display -->
-        <div class="installment-section">
+        <div class="installment-section" *ngIf="isActive === 'carPrice'">
           <p-card class="installment-card">
             <div class="installment-content">
               <h3>Monthly Installment</h3>
-              
+
               <!-- Monthly Installment Input -->
               <div class="installment-input-group">
                 <div class="text-start" style="color: #000; font-size: 40px;">
-                    {{formatCurrency(monthlyInstallmentInput)}}
+                  {{formatCurrency(monthlyInstallmentInput)}}
                 </div>
-                
+
               </div>
 
-              <p-button 
-                label="Apply For Financing" 
-                class="apply-btn"
-                (onClick)="applyForFinancing()">
+              <p-button label="Apply For Financing" class="apply-btn" (onClick)="applyForFinancing()">
+              </p-button>
+            </div>
+          </p-card>
+        </div>
+        <!-- Show this when isActive === 'monthlyInstallment' -->
+        <div class="installment-section" *ngIf="isActive === 'monthlyInstallment'">
+          <p-card class="installment-card">
+            <div class="installment-content">
+              <h3>Estimated Car Price</h3>
+
+              <!-- Show estimated price -->
+              <div class="installment-input-group">
+                <div class="text-start" style="color: #000; font-size: 40px;">
+                  {{ formatCurrency(estimatedCarPrice) }}
+                </div>
+              </div>
+
+              <p-button label="Apply For Financing" class="apply-btn" (onClick)="applyForFinancing()">
               </p-button>
             </div>
           </p-card>
@@ -160,21 +192,16 @@
       <div class="faq-section">
         <h2>FAQS</h2>
         <p-accordion value="0" class="custom-accordion">
-          <p-accordion-panel 
-            *ngFor="let faq of faqItems; let i = index"
-            [value]="i.toString()">
+          <p-accordion-panel *ngFor="let faq of faqItems; let i = index" [value]="i.toString()">
             <p-accordion-header>{{faq.question}}</p-accordion-header>
             <p-accordion-content>
               <p class="m-0">{{faq.answer}}</p>
             </p-accordion-content>
           </p-accordion-panel>
         </p-accordion>
-        
+
         <div class="see-more-container">
-          <p-button 
-            label="See More" 
-            class="see-more-btn"
-            [outlined]="true">
+          <p-button label="See More" class="see-more-btn" [outlined]="true">
           </p-button>
         </div>
       </div>
