@@ -1,0 +1,222 @@
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    max-width: 100%;
+  }
+}
+
+// Progress Bar Styles
+.progress-bar {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+
+  &.start {
+    align-items: flex-start;
+  }
+  &.end {
+    align-items: flex-end;
+  }
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-circle {
+  border-color: #e53e3e;
+}
+
+.progress-step.active .step-dot {
+  background: #e53e3e;
+}
+
+.progress-step.completed .step-circle {
+  background: #e53e3e;
+  color: white;
+  border-color: #e53e3e;
+}
+
+.step-label {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.progress-step.active .step-label {
+  color: #e53e3e;
+}
+
+.progress-step.completed .step-label {
+  color: #e53e3e;
+}
+
+.step-sublabel {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.progress-line {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: #e2e8f0;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.progress-line.completed {
+  background: #e53e3e;
+}
+
+// Car Details Header
+.car-details-header {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  &.step3 {
+    margin: auto;
+    max-width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .car-image {
+    width: 80px;
+    height: 60px;
+    margin-right: 20px;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 120px;
+      height: 90px;
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  .car-info {
+    flex: 1;
+
+    .car-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin: 0 0 8px 0;
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+
+    .car-price {
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+
+      .currency {
+        font-size: 14px;
+        color: #dc2626;
+        font-weight: 500;
+      }
+
+      .amount {
+        font-size: 16px;
+        font-weight: 600;
+        color: #111827;
+        margin-left: 4px;
+      }
+
+      .period {
+        font-size: 12px;
+        color: #6b7280;
+        margin-left: 8px;
+      }
+    }
+
+    .car-specs {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      @media (max-width: 768px) {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .spec-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: #6b7280;
+
+        svg {
+          color: #dc2626;
+        }
+      }
+    }
+  }
+}
+
+// Step Content Styles
+.step-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}

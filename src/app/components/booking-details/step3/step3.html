@@ -1,0 +1,46 @@
+<div class="confirmation-container">
+  <!-- Success Illustration -->
+  <div class="success-illustration">
+    <img src="https://images.pexels.com/photos/3846511/pexels-photo-3846511.jpeg?auto=compress&cs=tinysrgb&w=400" 
+         alt="Booking Success" 
+         class="illustration-image" />
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-header">
+    <h1>Thank you {{ bookingData && bookingData.customerInfo && bookingData.customerInfo.fullName ? (bookingData.customerInfo.fullName.split(' ')[0]) : 'careman' }}, your booking has been accepted.</h1>
+    <p>Our customer support team will call you shortly.</p>
+  </div>
+
+  <!-- Booking ID -->
+  <div class="booking-id">
+    <span class="id-label">Your Booking ID:</span>
+    <span class="id-value">#{{ generateBookingId() }}</span>
+  </div>
+
+  <!-- Visit Details Card -->
+  <div class="details-card visit-details">
+    <div class="detail-item">
+      <div class="detail-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+        </svg>
+      </div>
+      <div class="detail-content">
+        <h3>Visit Date</h3>
+        <p>{{ formatBookingDateTime() }}</p>
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </div>
+      <div class="detail-content">
+        <h3>{{ bookingData?.location?.name || 'Service Center' }}</h3>
+        <p>{{ bookingData?.location?.address || 'Service Location Address' }}</p>
+      </div>
+    </div>
+  </div>

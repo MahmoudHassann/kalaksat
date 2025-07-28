@@ -46,7 +46,7 @@
     .specs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      padding: 15px 0;
       margin-bottom: 2rem;
 
       .spec-item {
@@ -64,20 +64,7 @@
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          background: rgba(220, 53, 69, 0.1);
-
-          i {
-            font-size: 1.2rem;
-            color: #dc3545;
-          }
-        }
-
-        &.red-icon .spec-icon {
-          background: rgba(220, 53, 69, 0.1);
-          
-          i {
-            color: #dc3545;
-          }
+        
         }
 
         .spec-content {
@@ -136,95 +123,51 @@
       }
     }
 
-    .action-buttons {
-      display: flex;
-      gap: 1rem;
-
-      .btn {
-        border-radius: 8px;
-        padding: 0.75rem;
-        border-width: 2px;
-        
-        &.btn-danger {
-          background: #dc3545;
-          border-color: #dc3545;
-          font-weight: 700;
-          transition: all 0.3s ease-out;
-          &:hover {
-            background: #fff;
-            border-color: #dc3545;
-            color: #dc3545;
-          }
-        }
-
-        &.btn-outline-danger {
-          transition: all 0.3s ease-out;
-          font-weight: 700;
-         background: #F9E5E5;
-            border-color: #F9E5E5;
-            color: #dc3545;
-
-          &:hover {
-            background: #f9a5a5;
-            border-color: #dc3545;
-            color: #dc3545;
-          }
-        }
-      }
-    }
+   
   }
 
   .tabs-section {
     border-radius: 12px;
     padding: 1.5rem;
     margin-top: 2rem;
+    ::ng-deep{
+      .p-tabpanels{
+        padding: 30px 0!important;
+      }
+      .p-tabs{
+        width: fit-content!important;
+      }
+    }
 
 
     .car-summary-content {
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0px 0px 4px 0px #00000040;
       .summary-item {
         margin-bottom: 1.5rem;
 
         .feature-card {
           display: flex;
           align-items: flex-start;
-          gap: 1rem;
-          padding: 1rem;
-          border: 1px solid #eee;
-          border-radius: 8px;
           height: 100%;
-
+          gap: 15px;
           .feature-icon {
             width: 40px;
             height: 40px;
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
 
-            &.red-icon {
-              background: rgba(220, 53, 69, 0.1);
-              
-              i {
-                color: #dc3545;
-                font-size: 1.2rem;
-              }
-            }
           }
 
           .feature-content {
             h6 {
-              font-size: 1rem;
-              font-weight: 600;
-              color: #333;
+              font-size: 15px;
+              font-weight: 300;
+              color: #000000;
               margin: 0 0 0.5rem 0;
-            }
-
-            p {
-              font-size: 0.875rem;
-              color: #666;
-              margin: 0;
-              line-height: 1.4;
             }
           }
         }
@@ -233,10 +176,26 @@
 
     .tab-content {
       padding: 1rem 0;
+
+      .overview-card{
+        .row{
+          gap: 10px;
+        }
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 4px 0px #00000040;
+
+        .overview-items{
+          .headerName{
+            font-weight: 700;
+          }
+        }
+      }
       
       p {
         color: #666;
         line-height: 1.6;
+        margin: 0;
       }
 
       ul {
@@ -346,8 +305,6 @@
       .car-summary-content {
         .summary-item {
           .feature-card {
-            padding: 0.75rem;
-            
             .feature-content {
               h6 {
                 font-size: 0.875rem;
@@ -387,3 +344,500 @@
     }
   }
 }
+/* popUp */
+$primary-color: #dc3545;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$white-color: #ffffff;
+$text-dark: #212529;
+$text-light: #6c757d;
+$border-color: #dee2e6;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+$border-radius: 8px;
+// Animation for smooth transitions
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.condition-detail-item,
+.feature-item {
+  animation: slideIn 0.3s ease forwards;
+}
+
+// Feature List Styles (for Car Features data)
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid $border-color;
+  transition: background-color 0.3s ease;
+
+
+  &:last-child {
+    border-bottom: none;// Variables
+  }
+}
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin button-reset {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+// Main Tab Content Styles
+.tab-content {
+  padding: 1rem;
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+}
+
+.condition-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.condition-item {
+  background: $white-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    box-shadow: $shadow;
+    transform: translateY(-2px);
+    border-color: $primary-color;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.condition-header {
+  @include flex-between;
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $text-dark;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  .arrow-icon {
+    font-size: 1.5rem;
+    color: $text-light;
+    transition: transform 0.3s ease;
+
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// Popup Overlay
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.popup-container {
+  background: $white-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  width: 90%;
+  padding: 30px;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+
+  .popup-overlay.active & {
+    transform: scale(1);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+   ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+}
+
+// Popup Header
+.popup-header {
+  @include flex-between;
+  background: #fff;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.car-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .car-icon {
+    width: 120px;
+    height: 80px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 4px 0px #00000040;
+ 
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .car-details {
+    h2 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-dark;
+
+      @media (max-width: 768px) {
+        font-size: 1.1rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $text-light;
+
+      @media (max-width: 768px) {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+.close-btn {
+  @include button-reset;
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  i {
+    font-size: 1.25rem;
+    color: $text-dark;
+  }
+
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+    
+    i {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Tab Navigation with Swiper
+.tab-navigation-container {
+  margin: 20px 0;
+  background: $white-color;
+  overflow: hidden;
+
+  ::ng-deep{
+    .swiper-wrapper{
+      gap: 15px;
+    }
+  }
+}
+
+.tab-swiper {
+  overflow: visible;
+}
+
+.tab-slide {
+  width: auto !important;
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  @include button-reset;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-light;
+  border-radius: 12px;
+  background: #F9E5E5;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: max-content;
+  display: block;
+  width: 100%;
+  color: #000;
+
+  &:hover {
+    background: rgba($primary-color, 0.05);
+    color: $primary-color;
+  }
+
+  &.active {
+    color: #fff;
+    background: #E02027;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.875rem 1rem;
+  }
+}
+
+// Modal Body (Static Content)
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(90vh - 200px);
+
+  @media (max-width: 768px) {
+    max-height: calc(100vh - 180px);
+  }
+}
+
+.content-container {
+  padding: 1.5rem;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.content-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-dark;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+// Condition List
+.condition-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.condition-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: $background-color;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.875rem;
+    gap: 0.875rem;
+  }
+}
+
+.condition-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: $white-color;
+  border-radius: 50%;
+  padding: 8px;
+  border: 1px solid $border-color;
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.condition-info {
+  flex: 1;
+  min-width: 0;
+
+  h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-dark;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: $text-light;
+    line-height: 1.4;
+
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+
+
+/* // Swiper Pagination
+.swiper-pagination {
+  bottom: 20px !important;
+  
+  @media (max-width: 768px) {
+    bottom: 15px !important;
+  }
+} */
+
+/* .custom-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba($text-light, 0.3) !important;
+  border-radius: 50% !important;
+  margin: 0 4px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 10px !important;
+    height: 10px !important;
+    margin: 0 3px !important;
+  }
+}
+
+.custom-bullet-active {
+  background: $primary-color !important;
+  transform: scale(1.2);
+}
+ */
+// Animation for smooth transitions
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.condition-detail-item {
+  animation: slideIn 0.3s ease forwards;
+}
+
+/* // Scrollbar styling for webkit browsers
+.swiper-slide::-webkit-scrollbar {
+  width: 6px;
+}
+
+.swiper-slide::-webkit-scrollbar-track {
+  background: $background-color;
+  border-radius: 3px;
+}
+
+.swiper-slide::-webkit-scrollbar-thumb {
+  background: rgba($text-light, 0.5);
+  border-radius: 3px;
+  
+  &:hover {
+    background: rgba($text-light, 0.7);
+  }
+} */

@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row my-5">
+         <app-step3 
+          *ngIf="currentStep === 3"
+          [carDetails]="carDetails"
+          [bookingData]="bookingData"
+          (prevStep)="onPrevStep()"
+          (bookingComplete)="onBookingComplete()">
+        </app-step3>
+    <div class="car-details-header" [ngClass]="currentStep === 3 ?'step3':'col-12 col-md-5'">
+        <div class="car-image">
+          <img [src]="carDetails?.image" [alt]="carDetails?.name" />
+        </div>
+        <div class="car-info">
+          <h2 class="car-name">{{ carDetails?.name }}</h2>
+          <div class="car-price">
+            <span class="currency">EGP <span class="amount">{{ carDetails?.price | number }}</span></span>
+            <span class="period">from {{ carDetails?.pricePerMonth | number }}/mo</span>
+          </div>
+          <div class="car-specs">
+            <div class="spec-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <span>{{ carDetails?.mileage | number }} KMs</span>
+            </div>
+            <div class="spec-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+              </svg>
+              <span>{{ carDetails?.year }}</span>
+            </div>
+            <div class="spec-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <span>{{ carDetails?.transmission }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="col-12 col-md-7">
+      <!-- Progress Bar -->
+          @if(currentStep !== 3){
+        <div class="progress-bar">
+          <div class="progress-step start" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+            <div class="step-circle">
+              <svg *ngIf="currentStep > 1" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"/>
+              </svg>
+              <div *ngIf="currentStep <= 1" class="step-dot"></div>
+            </div>
+            <span class="step-label">Appointment</span>
+            <div class="step-sublabel">Booking Details</div>
+          </div>
+
+          <div class="progress-line" [class.completed]="currentStep > 1"></div>
+
+          <div class="progress-step end" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+            <div class="step-circle">
+              <svg *ngIf="currentStep > 2" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"/>
+              </svg>
+              <div *ngIf="currentStep <= 2" class="step-dot"></div>
+            </div>
+            <span class="step-label">Verification</span>
+            <div class="step-sublabel">Verify your Mobile Number</div>
+          </div>
+        </div>
+    }
+
+      <!-- Car Details Header -->
+      
+
+      <!-- Step Content -->
+      <div class="step-content">
+        <app-step1 
+          *ngIf="currentStep === 1"
+          [carDetails]="carDetails"
+          (nextStep)="onNextStep()"
+          (stepData)="onStepData($event)">
+        </app-step1>
+
+        <app-step2 
+          *ngIf="currentStep === 2"
+          [carDetails]="carDetails"
+          (nextStep)="onNextStep()"
+          (prevStep)="onPrevStep()"
+          (stepData)="onStepData($event)">
+        </app-step2>
+
+      </div>
+    </div>
+</div>
+</div>

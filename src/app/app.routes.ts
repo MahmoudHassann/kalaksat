@@ -3,6 +3,7 @@ import { Home } from './components/home/home';
 import { ProductDetails } from './components/product-details/product-details';
 import { Auth } from './components/auth/auth';
 import { Finance } from './components/finance/finance';
+import { BookingDetails } from './components/booking-details/booking-details';
 
 export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
@@ -10,5 +11,6 @@ export const routes: Routes = [
     {path:'home',component:Home},
     {path:'product/:id',component:ProductDetails},
     {path:'finance',component:Finance},
+    {path:'booking',component:BookingDetails},
     {path:'**',component:ProductDetails},
 ];

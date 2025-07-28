@@ -1,0 +1,258 @@
+.step-container {
+  padding: 30px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+
+  .step-header {
+    margin-bottom: 30px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #111827;
+      margin: 0 0 8px 0;
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+
+  // Location Section
+  .location-section {
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    .location-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+
+      .location-icon {
+        color: #dc2626;
+        margin-top: 2px;
+      }
+
+      .location-info {
+        h4 {
+          font-size: 14px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0 0 4px 0;
+        }
+
+        p {
+          font-size: 12px;
+          color: #6b7280;
+          margin: 0;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  // Date Section
+  .date-section {
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    .date-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      @media (max-width: 768px) {
+        gap: 8px;
+      }
+
+      .date-button {
+        color: #000!important;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        min-width: 80px;
+
+        @media (max-width: 768px) {
+          padding: 10px 12px;
+          min-width: 70px;
+        }
+
+        &:hover {
+          border-color: #dc2626;
+          background: #fef2f2;
+        }
+
+        &.selected {
+          border-color: #dc2626;
+          background: #fef2f2;
+          color: #dc2626!important;
+        }
+
+        .date-day {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 4px;
+
+          @media (max-width: 768px) {
+            font-size: 12px;
+          }
+        }
+
+        .date-label {
+          font-size: 12px;
+          opacity: 0.8;
+          font-weight: 300;
+
+          @media (max-width: 768px) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  // Time Section
+  .time-section {
+    margin-bottom: 40px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    .time-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      @media (max-width: 768px) {
+        gap: 8px;
+      }
+
+      .time-button {
+        color: #000;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 10px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        @media (max-width: 768px) {
+          padding: 8px 12px;
+          font-size: 12px;
+        }
+
+        &:hover:not(:disabled) {
+          border-color: #dc2626;
+          background: #fef2f2;
+        }
+
+        &.selected {
+          background: #f3f4f6;
+          border-color: #6b7280;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  // Action Buttons
+  /* .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      min-width: 120px;
+
+      @media (max-width: 768px) {
+        padding: 14px 24px;
+        min-width: 100%;
+      }
+
+      &.btn-primary {
+        background: #dc2626;
+        color: white;
+
+        &:hover:not(:disabled) {
+          background: #b91c1c;
+        }
+
+        &:disabled {
+          background: #d1d5db;
+          color: #9ca3af;
+          cursor: not-allowed;
+        }
+      }
+
+      &.btn-secondary {
+        background: white;
+        color: #dc2626;
+        border: 1px solid #dc2626;
+
+        &:hover:not(:disabled) {
+          background: #fef2f2;
+        }
+
+        &:disabled {
+          background: #f9fafb;
+          color: #d1d5db;
+          border-color: #d1d5db;
+          cursor: not-allowed;
+        }
+      }
+    }
+  } */
+}

@@ -1,0 +1,63 @@
+ <div class="step-container">
+      <div class="step-header">
+        <h2>Booking Details</h2>
+        <p>Select day and time that suits you!</p>
+      </div>
+
+      <!-- Location Details -->
+      <div class="location-section">
+        <h3>Location Details</h3>
+        <div class="location-card">
+          <div class="location-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <div class="location-info">
+            <h4>{{ locationDetails.name }}</h4>
+            <p>{{ locationDetails.address }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Selection -->
+      <div class="date-section">
+        <h3>Select Day</h3>
+        <div class="date-options">
+          <button 
+            *ngFor="let dateOption of dateOptions"
+            class="date-button"
+            [class.selected]="selectedDate === dateOption.date"
+            (click)="selectDate(dateOption.date)">
+            <div class="date-day">{{ dateOption.day }}</div>
+            <div class="date-label">{{ dateOption.label }}</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Time Selection -->
+      <div class="time-section">
+        <h3>Select Time</h3>
+        <div class="time-options">
+          <button 
+            *ngFor="let timeSlot of availableTimeSlots"
+            class="time-button"
+            [class.selected]="selectedTime === timeSlot.time"
+            [disabled]="!timeSlot.available"
+            (click)="selectTime(timeSlot.time)">
+            {{ timeSlot.time }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-outline-danger btn-sm" style="flex: 1;" disabled>Back</button>
+        <button 
+          class="btn btn-danger btn-sm"
+          [disabled]="!canContinue()"
+          (click)="continue()" style="flex: 1;">
+          Continue
+        </button>
+      </div>
+    </div>
