@@ -29,7 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { CarCardData } from '../product-card/product';
 import { ProductCard } from '../product-card/product-card';
 
-export type CarFilterMode = 'new' | 'used' | 'vip';
+export type CarFilterMode = 'new' | 'used' | 'vip' | 'electric';
 
 export interface CarFiltersValue {
   vehicle_status: CarFilterMode;
@@ -96,7 +96,7 @@ export class Products implements OnInit {
   // -----------------------------
   // Signals (state)
   // -----------------------------
-  private _mode = signal<CarFilterMode>('vip'); // your default
+  private _mode = signal<CarFilterMode>('electric'); // your default
 
   // Tabs/signals omitted for brevity … (keep your existing ones)
 
@@ -125,7 +125,7 @@ export class Products implements OnInit {
     if (this.fetchedTabs().has(tab)) return;
 
     // Skip brand loading if mode is 'vip'
-    if (mode === 'vip' && tab === 'brand') return;
+    if ((mode === 'vip' || mode === 'electric') && tab === 'brand') return;
 
     const updated = new Set(this.fetchedTabs());
     updated.add(tab);
@@ -155,7 +155,7 @@ export class Products implements OnInit {
   }
   ngOnInit(): void {}
   private resetFiltersAndSort() {
-  this.selectedSort = '';
+  this.selectedSort = 'most-relevant';
    this.resetFilters(); // Clear all form filter values
 }
 resetFilters() {
@@ -439,7 +439,7 @@ handleClickOutside(event: MouseEvent) {
     const page = 1;
     const mode = this._mode();
  
-    const limit = mode === 'vip' ? 12 : 6;
+    const limit = (mode === 'vip' || mode === 'electric') ? 12 : 6;
 
     const url = `${environment.baseUrl}cars/pagination/${sortParams.direction}/${sortParams.field}/${page}/${limit}`;
 
@@ -448,7 +448,7 @@ handleClickOutside(event: MouseEvent) {
       price_range: priceRange,
     };
 
-    this._httpClinet.post<CarCardData[]>(url, mode === 'vip' ? [] : payload).subscribe({
+    this._httpClinet.post<CarCardData[]>(url, (mode === 'vip' || mode === 'electric') ? {vehicle_status:mode} : payload).subscribe({
       next: (res:any) => {
         this.Cars.set(Array.isArray(res['data']) ? res['data'] : []);
       },

@@ -1,10 +1,10 @@
 <div class="header">
     <div class="img-icon">
-        <img [src]="mode === 'new'? 'img/newCar.png' : mode === 'used' ? 'img/usedCar.png':'img/vipCar.png'" style="width: 114px; height: 114px;" alt="carIcon">
+        <img [src]="mode === 'new'? 'img/newCar.png' : mode === 'used' ? 'img/usedCar.png':mode === 'vip'? 'img/vipCar.png':'img/electricCar.png'" style="width: 114px; height: 114px;" alt="carIcon">
     </div>
     <div class="title">
-        <h2>{{mode === 'new'?'New Cars': mode === 'used'? 'UsedCars' : 'Vip Cars'}}</h2>
-        <p>{{mode === 'new'?'Get your New Car now!': mode === 'used'? 'From the best showrooms Network.' : 'Luxury and comfort at the highest level.'}}</p>
+        <h2>{{mode === 'new'?'New Cars': mode === 'used'? 'UsedCars' :mode === 'vip'? 'Vip Cars':'Electric Cars'}}</h2>
+        <p>{{mode === 'new'?'Get your New Car now!': mode === 'used'? 'From the best showrooms Network.' :mode === 'vip'? 'Luxury and comfort at the highest level.':'Drive the future with zero emissions.'}}</p>
     </div>
 </div>
 <div class="container">

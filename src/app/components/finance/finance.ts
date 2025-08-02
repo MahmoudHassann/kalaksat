@@ -34,8 +34,8 @@ downPaymentFixed: number = 0; // For monthlyInstallment mode
 minDownPaymentFixed: number = 0;
 maxDownPaymentFixed: number = 2500000;
   // Car price slider
-  carPrice: number = 500000;
-  minCarPrice: number = 500000;
+  carPrice: number = 200000;
+  minCarPrice: number = 200000;
   maxCarPrice: number = 3000000;
   
   // Down payment as percentage
@@ -118,19 +118,12 @@ maxDownPaymentFixed: number = 2500000;
     return;
   }
 
-  const annualRate = 0.05;
-  const monthlyRate = annualRate / 12;
-  const numberOfPayments = this.loanTenor;
+ const years = this.loanTenor / 12;
+  const interestPercent = years * 15;
+  const interestAmount = (this.loanAmount * interestPercent) / 100;
+  const totalToPay = interestAmount + this.loanAmount;
 
-  if (monthlyRate === 0) {
-    this.calculatedMonthlyInstallment = this.loanAmount / numberOfPayments;
-  } else {
-    this.calculatedMonthlyInstallment = this.loanAmount * 
-      (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
-      (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-  }
-
-  this.monthlyInstallmentInput = Math.round(this.calculatedMonthlyInstallment);
+  this.monthlyInstallmentInput = Math.round(totalToPay / this.loanTenor);
 }
 onDownPaymentFixedChange(): void {
   this.calculateValues();

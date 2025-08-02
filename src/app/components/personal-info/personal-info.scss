@@ -1,0 +1,70 @@
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+      background: transparent;
+    color: #000;
+}
+.email{
+    position: relative;
+}
+
+.checkmark {
+  color: green;
+  font-size: 1rem;
+  position: absolute;
+  right: 10px;
+     top: 50%;
+}
+
+button {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #ddd;
+  color: #444;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.success-msg {
+  color: green;
+  margin-top: 1rem;
+}

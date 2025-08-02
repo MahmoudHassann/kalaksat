@@ -21,7 +21,7 @@
               queryParamsHandling="merge" routerLinkActive="active">Used Cars</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link">About Us</a>
+            <a class="nav-link" [routerLink]="['/about']" routerLinkActive="active">About Us</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/finance" routerLinkActive="active">Finance</a>
@@ -108,7 +108,7 @@
               <div class="sign-in-content">
                 <h3>Sign In</h3>
                 <p>Don't have an account?</p>
-                <button class="sign-in-link" (click)="navigateToSignIn()">Sign in</button>
+                <button class="sign-in-link" routerLink="login">Sign in</button>
               </div>
             </div>
           </div>
@@ -198,7 +198,7 @@
               routerLinkActive="active">Used Cars</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" (click)="closeModal()">About Us</a>
+              <a class="nav-link" (click)="closeModal()" [routerLink]="['/about']">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLink="/finance" routerLinkActive="active" (click)="closeModal()">Finance</a>

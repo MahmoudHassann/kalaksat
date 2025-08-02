@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, EventEmitter, OnInit, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, computed, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,FormsModule  } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
 import { CarCardData, PriceFilter } from '../product-card/product';
 import { ProductCard } from "../product-card/product-card";
 import { LoanCalculator } from "../loan-calculator/loan-calculator";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SelectModule } from 'primeng/select';
@@ -17,13 +17,15 @@ import { SelectModule } from 'primeng/select';
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home implements OnInit {
+export class Home implements OnInit ,AfterViewInit, OnDestroy{
 searchForm!: FormGroup;
   filteredModels: any[] = [];
   minPrice = 250000;
   maxPrice = 1000000;
   rangeValues: number[] = [250000, 1000000];
   Cars = signal<CarCardData[]>([]);
+  NewCars = signal<CarCardData[]>([]);
+  UsedCars = signal<CarCardData[]>([]);
   loading = signal<boolean>(true);
 noData = computed(() => !this.loading() && this.Cars().length === 0);
   Brands: Array<{id:number; name:string}> = [];
@@ -50,6 +52,52 @@ isModelsLoading = false;
 isTypesLoading = false;
 isStatusesLoading = false;
 isStylesLoading = false;
+@ViewChild ('swiperContainer', { static: true }) swiperContainer!: ElementRef;
+  
+   private swiper: any;
+  private autoplayInterval: any;
+  private currentSlideIndex = 0;
+  private keydownHandler?: (e: KeyboardEvent) => void;
+  private mouseEnterHandler?: () => void;
+  private mouseLeaveHandler?: () => void;
+  
+  public isBrowser: boolean;
+
+  slides: any[] = [
+    {
+      id: 'welcome',
+      title: 'Welcome to the all-new Klaksat',
+      subtitle: 'where finding your perfect car starts with you.',
+      buttons: {
+        primary: { text: 'Buy a Used Car', action: 'navigate', params: { path: '/products', queryParams: { mode: 'used' } } },
+        secondary: { text: 'Buy a New Car', action: 'navigate', params: { path: '/products', queryParams: { mode: 'new' } } }
+      },
+      backgroundClass: 'slide-1',
+      carType: 'sedan'
+    },
+    {
+      id: 'used-cars',
+      title: 'Premium Used Cars',
+      subtitle: 'Quality pre-owned vehicles with certified inspections.',
+      buttons: {
+        primary: { text: 'Browse Used Cars', action: 'navigate', params: { path: '/products', queryParams: { mode: 'used' } } },
+        secondary: { text: 'Financing Options', action: 'financing', params: {} }
+      },
+      backgroundClass: 'slide-2',
+      carType: 'suv'
+    },
+    {
+      id: 'new-cars',
+      title: 'Latest New Models',
+      subtitle: 'Experience the newest technology and luxury features.',
+      buttons: {
+        primary: { text: 'Browse New Cars', action: 'navigate', params: { path: '/products', queryParams: { mode: 'new' } } },
+        secondary: { text: 'Schedule Test Drive', action: 'test-drive', params: {} }
+      },
+      backgroundClass: 'slide-3',
+      carType: 'sports'
+    }
+  ];
 
  years: number[] = Array.from({ length: 126 }, (_, i) => new Date().getFullYear() - i);
   
@@ -93,12 +141,15 @@ isStylesLoading = false;
   trackByFilterId(index: number, filter: PriceFilter): string {
     return filter.id;
   }
-  constructor(private fb: FormBuilder,private _httpClient:HttpClient) {
+  constructor(private fb: FormBuilder,private _httpClient:HttpClient,@Inject(PLATFORM_ID) private platformId: Object,private router:Router) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
   ngOnInit(): void {
     this.initializeForm();
     this.setupFormSubscriptions();
     this.getCars();
+    this.getUsedCars();
+    this.getNewCars();
   }
   private initializeForm(): void {
     this.searchForm = this.fb.group({
@@ -110,6 +161,190 @@ isStylesLoading = false;
   fuel_economy: [null],
   body_style_id: [null]
     });
+  }
+ ngAfterViewInit(): void {
+    if (this.isBrowser) {
+      this.initializeSwiper();
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Clean up event listeners
+    if (this.keydownHandler) {
+      document.removeEventListener('keydown', this.keydownHandler);
+    }
+
+    if (this.mouseEnterHandler && this.mouseLeaveHandler && this.swiperContainer) {
+      const swiperEl = this.swiperContainer.nativeElement;
+      swiperEl.removeEventListener('mouseenter', this.mouseEnterHandler);
+      swiperEl.removeEventListener('mouseleave', this.mouseLeaveHandler);
+    }
+
+    // Clean up swiper
+    if (this.swiper) {
+      this.swiper.destroy(true, true);
+      this.swiper = null;
+    }
+
+    // Clean up intervals
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+    }
+  }
+
+  private async initializeSwiper(): Promise<void> {
+    try {
+      // Dynamically import Swiper only in browser
+      const { default: Swiper } = await import('swiper');
+      const { Navigation, Pagination, Autoplay, EffectFade } = await import('swiper/modules');
+
+      // Wait for next tick to ensure DOM is ready
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      // Check if container exists
+      if (!this.swiperContainer?.nativeElement) {
+        console.error('Swiper container not found');
+        return;
+      }
+
+      // Initialize Swiper
+      this.swiper = new Swiper(this.swiperContainer.nativeElement, {
+        modules: [Navigation, Pagination, Autoplay, EffectFade],
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        speed: 800,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        touchRatio: 1,
+        simulateTouch: true,
+        grabCursor: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        on: {
+          slideChange: (swiper) => {
+            this.currentSlideIndex = swiper.realIndex || swiper.activeIndex || 0;
+          },
+          init: (swiper) => {
+            this.currentSlideIndex = swiper.realIndex || swiper.activeIndex || 0;
+          }
+        }
+      });
+
+      // Wait for swiper to be fully initialized
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      this.setupEventListeners();
+    } catch (error) {
+      console.error('Failed to initialize Swiper:', error);
+    }
+  }
+
+  private setupEventListeners(): void {
+    if (!this.isBrowser || !this.swiper) return;
+
+    // Keyboard navigation
+    const keydownHandler = (e: KeyboardEvent) => {
+      if (!this.swiper) return;
+      
+      if (e.key === 'ArrowLeft') {
+        this.swiper.slidePrev();
+      } else if (e.key === 'ArrowRight') {
+        this.swiper.slideNext();
+      }
+    };
+
+    document.addEventListener('keydown', keydownHandler);
+
+    // Store reference for cleanup
+    this.keydownHandler = keydownHandler;
+
+    // Pause autoplay on hover
+    const swiperEl = this.swiperContainer.nativeElement;
+    
+    const mouseEnterHandler = () => {
+      if (this.swiper?.autoplay) {
+        this.swiper.autoplay.stop();
+      }
+    };
+
+    const mouseLeaveHandler = () => {
+      if (this.swiper?.autoplay) {
+        this.swiper.autoplay.start();
+      }
+    };
+
+    swiperEl.addEventListener('mouseenter', mouseEnterHandler);
+    swiperEl.addEventListener('mouseleave', mouseLeaveHandler);
+
+    // Store references for cleanup
+    this.mouseEnterHandler = mouseEnterHandler;
+    this.mouseLeaveHandler = mouseLeaveHandler;
+  }
+
+  handleButtonClick(button: { text: string; action: string; params?: any }): void {
+    switch (button.action) {
+      case 'navigate':
+        this.router.navigate([button.params.path], { 
+          queryParams: button.params.queryParams,
+          queryParamsHandling: 'merge'
+        });
+        break;
+      case 'financing':
+        this.showFinancing();
+        break;
+      case 'test-drive':
+        this.scheduleTestDrive();
+        break;
+      default:
+        console.log('Unknown action:', button.action);
+    }
+  }
+
+  private showFinancing(): void {
+    // Navigate to financing page or show modal
+    this.router.navigate(['/financing']);
+  }
+
+  private scheduleTestDrive(): void {
+    // Navigate to test drive page or show modal
+    this.router.navigate(['/test-drive']);
+  }
+
+  trackBySlideId(index: number, slide: any): string {
+    return slide.id;
+  }
+
+  // Public methods for external control
+  public nextSlide(): void {
+    if (this.swiper) {
+      this.swiper.slideNext();
+    }
+  }
+
+  public prevSlide(): void {
+    if (this.swiper) {
+      this.swiper.slidePrev();
+    }
+  }
+
+  public goToSlide(index: number): void {
+    if (this.swiper) {
+      this.swiper.slideTo(index);
+    }
   }
   
   private setupFormSubscriptions(): void {
@@ -234,6 +469,36 @@ getBodyStyle(force = false){
     },
     error: () => {
       this.Cars.set([]);
+    },
+    complete: () => {
+      this.loading.set(false);
+    }
+  });
+}
+getNewCars() {
+  this.loading.set(true);
+  const url = 'cars/pagination/asc/id/1/3';
+  this._httpClient.post<CarCardData[]>(`${environment.baseUrl}${url}`, {vehicle_status:'new'}).subscribe({
+    next: (res: any) => {
+      this.NewCars.set(res['data']);
+    },
+    error: () => {
+      this.NewCars.set([]);
+    },
+    complete: () => {
+      this.loading.set(false);
+    }
+  });
+}
+getUsedCars() {
+  this.loading.set(true);
+  const url = 'cars/pagination/asc/id/1/3';
+  this._httpClient.post<CarCardData[]>(`${environment.baseUrl}${url}`, {vehicle_status:'used'}).subscribe({
+    next: (res: any) => {
+      this.UsedCars.set(res['data']);
+    },
+    error: () => {
+      this.UsedCars.set([]);
     },
     complete: () => {
       this.loading.set(false);

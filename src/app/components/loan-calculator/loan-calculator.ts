@@ -31,7 +31,7 @@ export class LoanCalculator {
     if (loanAmount <= 0) return 0;
 
     const annualInterest = 15;
-    const months = term / 12;
+    const months = term * 12;
     const interestPercent = term * annualInterest;
     const interestAmount = (loanAmount * interestPercent ) /100;
     const totalPay = loanAmount + interestAmount;

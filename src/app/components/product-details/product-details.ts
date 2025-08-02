@@ -8,6 +8,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from './product-service';
 import { Swiper } from 'swiper';
 import { Router } from '@angular/router';
+import { SliderModule } from 'primeng/slider';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
 
 interface ConditionItem {
   id: string;
@@ -40,15 +44,37 @@ interface TabInfo {
   standalone:true,
   imports: [CommonModule,
     GalleriaModule,
+    FormsModule,
     TabsModule,
     ButtonModule,
-    Skeleton],
+    CardModule,
+    Skeleton,InputNumberModule,SliderModule],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss'
 })
 export class ProductDetails {
  carId!: number;
+  // Car price slider
+  carPrice: number = 0;
+  minCarPrice: number = 500000;
+  maxCarPrice: number = 3000000;
+  monthlyInstallmentInput: number = 5000; 
   
+  // Down payment as percentage
+  downPaymentPercentage: number = 40; // 40%
+  minDownPaymentPercentage: number = 0;
+  maxDownPaymentPercentage: number = 95;
+  
+  downPaymentFixed: number = 0;
+  // Loan tenor slider
+  loanTenor: number = 48;
+  minLoanTenor: number = 12;
+  maxLoanTenor: number = 84;
+  // Calculated values
+  downPaymentAmount: number = 0;
+  loanAmount: number = 0;
+  calculatedMonthlyInstallment: number = 0;
+
   car: any | null = null;
   private destroy$ = new Subject<void>();
   constructor(private carService:ProductService,@Inject(PLATFORM_ID) private platformId: Object , private router:Router ){
@@ -235,6 +261,34 @@ this.carId = 1;
       this.tabSwiper.destroy();
     }
   }
+   onCarPriceChange(): void {
+    this.calculateValues();
+  }
+  calculateValues(): void {
+ 
+    this.downPaymentAmount = (this.carPrice * this.downPaymentPercentage) / 100;
+
+  this.loanAmount = this.carPrice - this.downPaymentAmount;
+
+  if (this.loanAmount <= 0) {
+    this.calculatedMonthlyInstallment = 0;
+    return;
+  }
+
+  const annualRate = 0.05;
+  const monthlyRate = annualRate / 12;
+  const numberOfPayments = this.loanTenor;
+
+  if (monthlyRate === 0) {
+    this.calculatedMonthlyInstallment = this.loanAmount / numberOfPayments;
+  } else {
+    this.calculatedMonthlyInstallment = this.loanAmount * 
+      (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+      (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  }
+
+  this.monthlyInstallmentInput = Math.round(this.calculatedMonthlyInstallment);
+}
  openConditionItem(tabPanelId: string, category?: string): void {
     this.currentTabConfig = this.tabConfigs[tabPanelId];
     if (!this.currentTabConfig) return;
@@ -255,6 +309,33 @@ this.carId = 1;
         this.initTabSwiper();
       }, 100);
     }
+  }
+   formatCurrency(value: number | undefined | null): string {
+  if (value === null || value === undefined || isNaN(value)) {
+    return '0';
+  }
+
+  return value.toLocaleString('en-EG', {
+    style: 'currency',
+    currency: 'EGP',
+    minimumFractionDigits: 0
+  });
+}
+ onDownPaymentPercentageChange(): void {
+    this.calculateValues();
+  }
+   onLoanTenorChange(): void {
+    this.calculateValues();
+  }
+   applyForFinancing(): void {
+    console.log('Applying for financing with:', {
+      carPrice: this.carPrice,
+      downPaymentPercentage: this.downPaymentPercentage,
+      downPaymentAmount: this.downPaymentAmount,
+      loanAmount: this.loanAmount,
+      loanTenor: this.loanTenor,
+      monthlyInstallment: this.monthlyInstallmentInput
+    });
   }
 
   closePopup(): void {
@@ -321,8 +402,11 @@ this.carId = 1;
     this.carService.getCarById(this.carId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (car) => {
-          this.car = car;
+        next: (car:any) => {
+          this.car = car['data'];
+          this.carPrice = this.car.pricing.final_price;
+          console.log(this.car);
+          
         },
         error: (error) => {
           console.error('Error loading car details:', error);

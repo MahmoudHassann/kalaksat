@@ -1,0 +1,32 @@
+<div class="form-container">
+  <h2 class="title">Klaksat</h2>
+
+  <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+    <h3 class="section-title">Personal Information</h3>
+
+    <label>
+      Name
+      <input type="text" formControlName="name" placeholder="Your name" />
+    </label>
+
+    <label class="email">
+      Email
+      <input type="email" formControlName="email" placeholder="example@gmail.com" />
+      <span *ngIf="personalInfoForm.get('email')?.valid" class="checkmark"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25 15C25 17.6522 23.9464 20.1957 22.0711 22.0711C20.1957 23.9464 17.6522 25 15 25C12.3478 25 9.8043 23.9464 7.92893 22.0711C6.05357 20.1957 5 17.6522 5 15C5 12.3478 6.05357 9.80431 7.92893 7.92895C9.8043 6.05358 12.3478 5.00001 15 5.00001C15.95 5.00001 16.875 5.13751 17.75 5.38751L19.7125 3.42501C18.2181 2.80877 16.6165 2.4944 15 2.50001C13.3585 2.50001 11.733 2.82333 10.2165 3.45152C8.69989 4.0797 7.3219 5.00045 6.16117 6.16118C3.81696 8.50538 2.5 11.6848 2.5 15C2.5 18.3152 3.81696 21.4946 6.16117 23.8388C7.3219 24.9996 8.69989 25.9203 10.2165 26.5485C11.733 27.1767 13.3585 27.5 15 27.5C18.3152 27.5 21.4946 26.1831 23.8388 23.8388C26.183 21.4946 27.5 18.3152 27.5 15M9.8875 12.6L8.125 14.375L13.75 20L26.25 7.50001L24.4875 5.72501L13.75 16.4625L9.8875 12.6Z" fill="#53D85C"/>
+</svg>
+</span>
+    </label>
+
+    <label>
+      Phone (Optional)
+      <input type="tel" formControlName="phone" placeholder="01001039324" />
+    </label>
+
+    <button type="submit" [disabled]="!personalInfoForm.valid || isLoading">
+      {{ isLoading ? 'Saving...' : 'Save' }}
+    </button>
+
+    <p *ngIf="success" class="success-msg">Updated successfully!</p>
+  </form>
+</div>

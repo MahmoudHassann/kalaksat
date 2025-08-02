@@ -46,15 +46,16 @@ constructor(
     this.userInitial = this.authService.userInitial;
     this.userName = this.authService.userName;
     this.userPhone = this.authService.userPhone;
-  }
-
-  ngOnInit(): void {
     effect(() => {
       this.userInitialValue = this.userInitial();
       this.userNameValue = this.userName();
       this.userPhoneValue = this.userPhone();
       this.isLoggedInValue = this.isLoggedIn();
     });
+  }
+
+  ngOnInit(): void {
+    
   }
   
 

@@ -1,0 +1,519 @@
+// Variables
+$primary-red: #e74c3c;
+$primary-purple: #8e44ad;
+$primary-blue: #3498db;
+$dark-gray: #2c3e50;
+$light-gray: #95a5a6;
+$text-gray: #7f8c8d;
+$white: #ffffff;
+$light-bg: #f8f9fa;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.klaksat-about {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: $dark-gray;
+  background: $white;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  // Header Section
+  .header-section {
+    background: $light-bg;
+    padding: 60px 0 40px;
+    text-align: center;
+    border-bottom: 1px solid #e1e8ed;
+
+    .logo-wrapper {
+      .logo-circle {
+        @include flex-center;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        position: relative;
+
+        .logo-text {
+          color: $white;
+          font-weight: bold;
+          font-size: 11px;
+          letter-spacing: 1px;
+        }
+      }
+
+      .main-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $dark-gray;
+        margin: 0;
+        letter-spacing: -0.5px;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  // Features Section
+  .features-section {
+    padding: 60px 0;
+    background: $white;
+
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      .img-feature{
+        width: 100px;
+        height: 100px;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .feature-icon {
+        flex-shrink: 0;
+        width: 20rem;
+
+        .icon-circle {
+          @include flex-center;
+          flex-direction: column;
+          border-radius: 50%;
+          position: relative;
+            text-align: center;
+        }
+      }
+
+      .feature-content {
+        flex: 1;
+
+        .feature-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: $dark-gray;
+          margin: 0 0 8px 0;
+          line-height: 1.3;
+        }
+
+        .feature-subtitle {
+          font-size: 1rem;
+          color: $text-gray;
+          margin: 0 0 15px 0;
+          font-weight: 500;
+        }
+
+        .feature-description {
+          font-size: 0.95rem;
+          color: $text-gray;
+          line-height: 1.7;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // How It Works Section
+  .how-it-works-section {
+    padding: 60px 0;
+    background: $light-bg;
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $dark-gray;
+      text-align: center;
+      margin: 0 0 50px 0;
+    }
+
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+
+      &:nth-child(even) {
+        flex-direction: row-reverse;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+      }
+
+      .step-illustration {
+        flex-shrink: 0;
+        width: 280px;
+        height: 200px;
+
+        @media (max-width: 768px) {
+          width: 250px;
+          height: 180px;
+        }
+
+        .illustration-wrapper {
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+          position: relative;
+          overflow: hidden;
+          @include flex-center;
+
+          // Step 1: Search Car
+          &.search-car {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+            .person-icon {
+              position: absolute;
+              left: 20px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 60px;
+              background: #6c757d;
+              border-radius: 20px 20px 5px 5px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 25px;
+                height: 25px;
+                background: #fdbcb4;
+                border-radius: 50%;
+              }
+            }
+
+            .car-icon {
+              position: absolute;
+              right: 30px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 80px;
+              height: 40px;
+              background: $primary-red;
+              border-radius: 20px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 15px;
+                width: 12px;
+                height: 12px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                right: 15px;
+                width: 12px;
+                height: 12px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+            }
+
+            .document-icon {
+              position: absolute;
+              left: 80px;
+              top: 30px;
+              width: 30px;
+              height: 40px;
+              background: $white;
+              border-radius: 3px;
+              border: 2px solid #dee2e6;
+            }
+          }
+
+          // Step 2: Inspect Car
+          &.inspect-car {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+
+            .person-icon {
+              position: absolute;
+              left: 30px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 60px;
+              background: $primary-purple;
+              border-radius: 20px 20px 5px 5px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 25px;
+                height: 25px;
+                background: #fdbcb4;
+                border-radius: 50%;
+              }
+            }
+
+            .car-icon {
+              position: absolute;
+              right: 20px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 120px;
+              height: 60px;
+              background: $primary-blue;
+              border-radius: 30px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 20px;
+                width: 16px;
+                height: 16px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                right: 20px;
+                width: 16px;
+                height: 16px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          // Step 3: Test Drive
+          &.test-drive {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+
+            .car-icon {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              width: 100px;
+              height: 50px;
+              background: $primary-blue;
+              border-radius: 25px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 18px;
+                width: 14px;
+                height: 14px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                right: 18px;
+                width: 14px;
+                height: 14px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+            }
+
+            .location-pin {
+              position: absolute;
+              right: 40px;
+              top: 30px;
+              width: 20px;
+              height: 30px;
+              background: $primary-red;
+              border-radius: 50% 50% 50% 0;
+              transform: rotate(-45deg);
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                width: 8px;
+                height: 8px;
+                background: $white;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          // Step 4: Financing
+          &.financing {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+
+            .money-stack {
+              position: absolute;
+              left: 40px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 60px;
+              height: 40px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 8px;
+                background: #4caf50;
+                border-radius: 2px;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                top: 12px;
+                left: 0;
+                width: 100%;
+                height: 8px;
+                background: #4caf50;
+                border-radius: 2px;
+              }
+            }
+
+            .car-icon {
+              position: absolute;
+              right: 30px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 70px;
+              height: 35px;
+              background: $primary-red;
+              border-radius: 18px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 12px;
+                width: 10px;
+                height: 10px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                right: 12px;
+                width: 10px;
+                height: 10px;
+                background: $dark-gray;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+
+      .step-content {
+        flex: 1;
+
+        .step-title {
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: $dark-gray;
+          margin: 0 0 15px 0;
+          line-height: 1.3;
+        }
+
+        .step-description {
+          font-size: 0.95rem;
+          color: $text-gray;
+          line-height: 1.7;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 15px;
+    }
+
+    .header-section {
+      padding: 40px 0 30px;
+    }
+
+    .features-section,
+    .how-it-works-section {
+      padding: 40px 0;
+    }
+
+    .features-list {
+      gap: 40px;
+    }
+
+    .steps-container {
+      gap: 50px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .step-illustration {
+      width: 100% !important;
+      height: 160px !important;
+    }
+
+    .feature-item {
+      gap: 15px;
+    }
+
+
+  }
+}

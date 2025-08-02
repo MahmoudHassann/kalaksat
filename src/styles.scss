@@ -19,7 +19,7 @@ body {
   background-color: #e02027;
   color: #fff;
   padding: 15px 20px;
-  font-size: 30px;
+
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -194,5 +194,8 @@ body {
     }
     }
     .p-inputtext{
-      color: #fff!important;
+      color: #000!important;
+    }
+    .p-inputtext:enabled:focus{
+border-color: #e02027!important;
     }
