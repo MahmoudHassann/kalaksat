@@ -9,6 +9,7 @@
 
 .main .description {
   gap: 40px;
+  height: 70vh;
   /*   align-items: center;
   min-height: 100vh; */
 }
@@ -197,7 +198,7 @@
   width: 100%;
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #dc3545;
+  color: #fff;
 }
 
 .price-range-container {
@@ -450,15 +451,15 @@
 }
 
 .filter-pills {
-  min-width: max-content;
+  /*   min-width: max-content; */
   padding: 0 0.5rem;
   gap: 16px;
 }
 
 .filter-pill {
-  border: 1px solid #6C6B6B;
+  border: 1px solid #6c6b6b;
   background-color: white;
-  color: #6C6B6B;
+  color: #6c6b6b;
   border-radius: 18px;
   padding: 10px 30px 10px 30px;
   font-weight: 300;
@@ -466,24 +467,24 @@
   white-space: nowrap;
   position: relative;
   min-width: fit-content;
-  &:focus{
-    box-shadow: none!important;
+  &:focus {
+    box-shadow: none !important;
   }
 }
 
 .filter-pill:hover {
-  border-color: #E02027;
-  color: #E02027;
+  border-color: #e02027;
+  color: #e02027;
   background-color: #f8f9fa;
 }
 
 .filter-pill.active {
-  border-color: #E02027;
-  color: #E02027;
+  border-color: #e02027;
+  color: #e02027;
 }
 
 .filter-pill.active:hover {
-  background-color: #E02027;
+  background-color: #e02027;
   color: white;
 }
 
@@ -494,34 +495,31 @@
 
 .section-box {
   .section-title {
-    .header {
-      h2 {
-        font-size: 40px;
-        font-weight: 700;
-      }
-      p {
-        font-size: 30px;
-        font-weight: 300;
-      }
-    }
-    .show-btn{
-      .btn{
-        transition: all .3s ease-out;
-        svg{
-          path{
-            transition: all .3s ease-out;
+    .show-btn {
+      .btn {
+        transition: all 0.3s ease-out;
+        svg {
+          path {
+            transition: all 0.3s ease-out;
           }
         }
-        &:hover{
+        &:hover {
           background-color: #e53e3e;
           color: #fff !important;
-          svg{
-            path{
-              fill: #fff!important;
+          svg {
+            path {
+              fill: #fff !important;
             }
           }
         }
       }
     }
   }
+}
+
+.noData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
 }

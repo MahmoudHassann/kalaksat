@@ -1,0 +1,332 @@
+.mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 12px;
+
+  .mode-btn {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+      box-shadow 0.15s ease;
+
+    &:hover {
+      border-color: #cfd3d9;
+    }
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &.active {
+      background: #e53935; /* red */
+      border-color: #e53935;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  .clear-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+      color: #4b5563;
+      text-decoration: underline;
+    }
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding: 0 60px;
+  gap: 20px;
+}
+
+/* ---------- Tabs header ---------- */
+.tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 12px;
+
+  .tab {
+    position: relative;
+    appearance: none;
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 16px;
+    font-weight: 700;
+    color: #6b7280;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      color: #374151;
+      background: #f9fafb;
+    }
+
+    &.active {
+      color: #fff;
+      background: #E02027;
+    }
+  }
+}
+
+/* ---------- Panels & grids ---------- */
+.panel {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  /* Brand grid – many small squares */
+  .brand-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Body style grid – larger items */
+  .body-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ---------- Chips (brand, body, price, etc.) ---------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 12px;
+    border: 1px solid #0B0D51;
+    background: #fff;
+    color: #111827;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+      transform 0.05s ease;
+
+    &:hover {
+      background: #edeff2;
+    }
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &.active {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+    }
+
+    &.pill {
+     width: auto;
+    min-height: auto;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    }
+
+    /* Decorative placeholders for logos and car icons */
+    &.brand .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #e5e7eb, #cbd5e1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    &.body .icon.car {
+      width: 32px;
+      height: 16px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #e5e7eb, #d1d5db);
+      position: relative;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 9999px;
+        background: #9ca3af;
+      }
+      &::before {
+        left: 2px;
+      }
+      &::after {
+        right: 2px;
+      }
+    }
+  }
+
+  /* "Show all / See less" link */
+  .show-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+
+    .link {
+      background: #E02027;
+      cursor: pointer;
+      text-decoration: none;
+      color: #e53935;
+      font-weight: 700;
+      border: 1px solid #E02027;
+      transition: all 0.3s ease-out;
+      width: 100%;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+
+      &:hover {
+        background: #fff;
+        color: #E02027;
+        border-color: #E02027;
+      }
+    }
+  }
+}
+
+/* ---------- Utilities for containers using white cards ---------- */
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+.noData{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sort-container {
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: Arial, sans-serif;
+}
+
+.sort-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.custom-dropdown {
+  position: relative;
+  width: 220px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.selected-option {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+   scrollbar-width: thin;              /* "auto" or "thin" */
+  scrollbar-color: #c1c1c1 #f1f1f1;   /* thumb and track */
+}
+.options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.options::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 4px;
+}
+
+.options::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
+
+.options li {
+  padding: 10px;
+  transition: background 0.3s;
+}
+
+.options li:hover {
+  background-color: #f0f0f0;
+}
+
+.options li.selected {
+  background-color: #ffe6e6;
+}
+.show-btn {
+      .btn {
+        transition: all 0.3s ease-out;
+        svg {
+          path {
+            transition: all 0.3s ease-out;
+          }
+        }
+        &:hover {
+          background-color: #e53e3e;
+          color: #fff !important;
+          svg {
+            path {
+              fill: #fff !important;
+            }
+          }
+        }
+      }
+    }

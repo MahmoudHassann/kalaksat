@@ -10,20 +10,11 @@ import { CarCardData } from './product';
   styleUrl: './product-card.scss'
 })
 export class ProductCard {
-    @Input() carData: CarCardData = {
-    id:1,
-    image: '/api/placeholder/300/200',
-    imageAlt: 'Car image',
-    status: 'fully refurbished',
-    brand: 'Toyota',
-    year: 2022,
-    category: '1st Category',
-    mileage: '55,500 KM',
-    originalPrice: 650000,
-    discountedPrice: 500000,
-    discountAmount: '35k off',
-    monthlyPayment: 'from 11,110/mo',
-    transmission: 'Automatic'
-  };
+    @Input() carData!: CarCardData;
 
+    formatDiscount(discount: number): string {
+  if (discount >= 1_000_000) return `${Math.round(discount / 1_000_000)}M off`;
+  if (discount >= 1_000) return `${Math.round(discount / 1_000)}K off`;
+  return `${discount} off`;
+}
 }

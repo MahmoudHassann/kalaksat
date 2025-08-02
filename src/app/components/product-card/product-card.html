@@ -3,8 +3,8 @@
         <!-- Image Section -->
         <div class="position-relative">
           <img 
-            [ngSrc]="carData.image" 
-            [alt]="carData.imageAlt"
+            [ngSrc]="carData.images[0] || 'img/product.png'" 
+            alt="car_card"
             class="card-img-top car-image"
             width="424"
             height="318"
@@ -17,7 +17,7 @@
 <path d="M11 1V3M11 19V21M1 11H3M19 11H21M5 17L5.343 16.657M16.657 5.343L17 5M17 17L16.657 16.657M5.343 5.343L5 5M14.265 13.627C14.392 14.935 14.455 15.589 14.072 15.88C13.689 16.17 13.114 15.906 11.962 15.376L11.664 15.238C11.337 15.088 11.174 15.012 11 15.012C10.827 15.012 10.663 15.088 10.336 15.238L10.038 15.376C8.886 15.906 8.311 16.171 7.928 15.88C7.545 15.59 7.608 14.935 7.735 13.627L7.767 13.289C7.804 12.917 7.822 12.731 7.767 12.559C7.714 12.387 7.595 12.247 7.357 11.969L7.14 11.715C6.302 10.735 5.882 10.245 6.029 9.774C6.135 9.434 6.487 9.266 7.14 9.094M9.577 7.704C10.21 6.568 10.527 6 11 6C11.473 6 11.79 6.568 12.423 7.704L12.587 7.998C12.767 8.321 12.857 8.482 12.997 8.588C13.137 8.695 13.313 8.735 13.662 8.814L13.98 8.886C15.21 9.164 15.825 9.303 15.971 9.774C16.077 10.114 15.888 10.464 15.459 11" stroke="#E02027" stroke-width="1.5" stroke-linecap="round"/>
 </svg>
 
-              {{ carData.status }}
+              {{ carData.performance.refurbishment_status }}
             </span>
           </div>
         </div>
@@ -26,36 +26,38 @@
         <div class="card-body p-4">
           <!-- Title -->
           <h5 class="card-title fw-bold mb-2">
-            {{ carData.brand }}-{{ carData.year }}
+            {{ carData.brand.name }}-{{ carData.model_year }}
           </h5>
 
           <!-- Category -->
-          <p class="text-muted small mb-3">{{ carData.category }}</p>
+          <p class="text-muted small mb-3">{{ carData.performance.vehicle_status.name }}</p>
 
           <!-- Mileage -->
-          <p class="text-muted small mb-3">{{ carData.mileage }}</p>
+          <p class="text-muted small mb-3">{{ carData.performance.mileage.formate }}</p>
 
           <!-- Pricing Section -->
           <div class="pricing-section mb-3">
             <!-- Original Price (crossed out) -->
+             @if(carData.pricing.has_discount){
             <div class="d-flex align-items-center mb-2">
               <span class="text-muted small me-2">EGP</span>
               <span class="text-decoration-line-through text-muted">
-                {{ carData.originalPrice | number }}
+                {{ carData.pricing.original_price | number }}
               </span>
-              <span class="badge discount-badge ms-2">{{ carData.discountAmount }}</span>
+              <span class="badge discount-badge ms-2">{{ formatDiscount(+carData.pricing.discount) }}</span>
             </div>
+            }
 
             <!-- Discounted Price -->
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="fs-4 fw-bold text-danger">
                   <span class="text-muted small me-2">EGP</span>
-                {{ carData.discountedPrice | number }}
+                {{ carData.pricing.final_price | number }}
               </span>
             
 
             <!-- Monthly Payment -->
-            <p class="text-muted small mb-0">{{ carData.monthlyPayment }}</p>
+            <p class="text-muted small mb-0">{{ carData.pricing.monthly_installment_formatted }}</p>
             </div>
           </div>
 
@@ -69,7 +71,7 @@
 </svg>
 
 
-              <span>{{ carData.mileage }}</span>
+              <span>{{ carData.performance.mileage.formate }}</span>
             </div>
             <div class="col-4 d-flex align-items-center footer-item">
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,14 +79,14 @@
 <path d="M5 4C4.72 4 4.5 3.78 4.5 3.5V0.5C4.5 0.22 4.72 0 5 0C5.28 0 5.5 0.22 5.5 0.5V3.5C5.5 3.78 5.28 4 5 4ZM12 4C11.72 4 11.5 3.78 11.5 3.5V0.5C11.5 0.22 11.72 0 12 0C12.28 0 12.5 0.22 12.5 0.5V3.5C12.5 3.78 12.28 4 12 4ZM16 6H1C0.72 6 0.5 5.78 0.5 5.5C0.5 5.22 0.72 5 1 5H16C16.28 5 16.5 5.22 16.5 5.5C16.5 5.78 16.28 6 16 6Z" fill="#E02027"/>
 </svg>
 
-              <span>{{ carData.year }}</span>
+              <span>{{ carData.model_year }}</span>
             </div>
             <div class="col-4 d-flex align-items-center footer-item">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.51 4.5H8.49L5.25 12H6.75L7.2975 10.5H10.7025L11.25 12H12.75L9.51 4.5ZM7.725 9.375L9 6L10.275 9.375H7.725ZM13.05 15.3L14.25 16.5H10.5V12.75L12 14.25C13.7925 13.2075 15 11.2125 15 9C15 5.6925 12.3075 3 9 3C5.6925 3 3 5.6925 3 9C3 11.2125 4.2075 13.1475 6 14.19V15.87C3.3525 14.7075 1.5 12.075 1.5 9C1.5 4.875 4.875 1.5 9 1.5C13.125 1.5 16.5 4.875 16.5 9C16.5 11.6475 15.1275 13.965 13.05 15.3Z" fill="#E02027"/>
 </svg>
 
-              <span>{{ carData.transmission }}</span>
+              <span>{{ carData.specifications.transmission_type.name }}</span>
             </div>
           </div>
         </div>

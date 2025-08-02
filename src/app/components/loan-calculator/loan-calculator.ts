@@ -20,16 +20,24 @@ export class LoanCalculator {
     const price = this.carPrice();
     const down = this.downPayment();
     const term = Number(this.loanTerm());
+    
 
     if (!price || !term || price <= 0 || term <= 0) {
       return 0;
     }
+    
 
-    const principal = price - down;
-    if (principal <= 0) return 0;
+    const loanAmount = price - down;
+    if (loanAmount <= 0) return 0;
 
-    const numPayments = term * 12;
-    const monthlyPayment = principal / numPayments;
+    const annualInterest = 15;
+    const months = term / 12;
+    const interestPercent = term * annualInterest;
+    const interestAmount = (loanAmount * interestPercent ) /100;
+    const totalPay = loanAmount + interestAmount;
+
+  
+    const monthlyPayment = totalPay / months;
 
     return monthlyPayment;
   });

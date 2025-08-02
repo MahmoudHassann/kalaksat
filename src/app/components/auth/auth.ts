@@ -104,7 +104,7 @@ export class Auth {
       console.log(this.userName());
       
       if(this.userName()){
-        this.userService.updsteUser({name:this.userName}).subscribe({
+        this.userService.updsteUser({name:this.userName()}).subscribe({
         next: (res: any) => {
           if (res.message) {
             this.messageService.add({
