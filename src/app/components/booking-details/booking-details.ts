@@ -3,7 +3,8 @@ import { BookingData, BookingService, CarDetails } from './booking-service';
 import { Step1 } from './step1/step1';
 import { Step2 } from './step2/step2';
 import { Step3 } from './step3/step3';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location  } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-details',
@@ -13,25 +14,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './booking-details.scss'
 })
 export class BookingDetails implements OnInit {
- carDetails?: CarDetails;
+ carDetails?: any;
   
   currentStep = 1;
   bookingData: BookingData = {};
 
-  constructor(private bookingService: BookingService) {}
+  constructor(private bookingService: BookingService,private location: Location) {}
 
-  ngOnInit(): void {
-    if (this.carDetails) {
-      this.bookingService.updateBookingData({ carDetails: this.carDetails });
-    }
-    
-    this.bookingService.bookingData$.subscribe(data => {
-      this.bookingData = data;
-    });
+ ngOnInit(): void {
+   const state: any = this.location.getState();
+  this.carDetails = state?.carDetails;
+
+  if (this.carDetails) {
+    this.bookingService.updateBookingData({ carDetails: this.carDetails });
+    console.log(this.carDetails);
   }
 
+  this.bookingService.bookingData$.subscribe(data => {
+    this.bookingData = data;
+  });
+}
+
   onNextStep(): void {
-    console.log(this.currentStep);
     
     if (this.currentStep < 3) {
       this.currentStep++;

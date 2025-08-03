@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BookingData, BookingService, CarDetails } from '../booking-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './step3.html',
   styleUrl: './step3.scss'
 })
-export class Step3 {
+export class Step3 implements OnInit{
   @Input() carDetails?: CarDetails;
   @Input() bookingData?: BookingData;
   @Output() prevStep = new EventEmitter<void>();
@@ -25,6 +25,12 @@ export class Step3 {
 
   goBack(): void {
     this.prevStep.emit();
+  }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log(this.bookingData);
+    
   }
 
   generateBookingId(): string {

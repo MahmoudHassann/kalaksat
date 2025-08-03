@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, Inject, Input, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { TabsModule } from 'primeng/tabs';
 import { ButtonModule } from 'primeng/button';
@@ -7,11 +7,12 @@ import { Skeleton } from 'primeng/skeleton';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from './product-service';
 import { Swiper } from 'swiper';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { FinancingModal } from "../financing-modal/financing-modal";
 
 interface ConditionItem {
   id: string;
@@ -48,14 +49,14 @@ interface TabInfo {
     TabsModule,
     ButtonModule,
     CardModule,
-    Skeleton,InputNumberModule,SliderModule],
+    Skeleton, InputNumberModule, SliderModule, FinancingModal],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss'
 })
 export class ProductDetails {
  carId!: number;
   // Car price slider
-  carPrice: number = 0;
+/*   carPrice: number = 0; */
   minCarPrice: number = 500000;
   maxCarPrice: number = 3000000;
   monthlyInstallmentInput: number = 5000; 
@@ -75,11 +76,15 @@ export class ProductDetails {
   loanAmount: number = 0;
   calculatedMonthlyInstallment: number = 0;
 
-  car: any | null = null;
+carSignal = signal<any | null>(null);
+ car = computed(() => this.carSignal());
+ price: number | null = null;
+
+  // another computed signal example (e.g. just the final price)
+  carPrice = computed(() => this.car()?.pricing?.final_price);
   private destroy$ = new Subject<void>();
-  constructor(private carService:ProductService,@Inject(PLATFORM_ID) private platformId: Object , private router:Router ){
+  constructor(private carService:ProductService,@Inject(PLATFORM_ID) private platformId: Object , private router:Router,private route: ActivatedRoute ){
     this.isBrowser = isPlatformBrowser(this.platformId);
-this.carId = 1;
   }
   @ViewChild('tabSwiperContainer', { static: false }) tabSwiperContainer!: ElementRef;
   
@@ -248,10 +253,11 @@ this.carId = 1;
     }
   ];
 
-  ngOnInit(): void {
-    if (this.carId) {
+ ngOnInit(): void {
+    this.route.paramMap.subscribe(p => {
+      this.carId = +p.get('id')!;
       this.loadCarDetails();
-    }
+    });
   }
 
   ngOnDestroy(): void {
@@ -266,9 +272,9 @@ this.carId = 1;
   }
   calculateValues(): void {
  
-    this.downPaymentAmount = (this.carPrice * this.downPaymentPercentage) / 100;
+    this.downPaymentAmount = (this.carPrice() * this.downPaymentPercentage) / 100;
 
-  this.loanAmount = this.carPrice - this.downPaymentAmount;
+  this.loanAmount = this.carPrice() - this.downPaymentAmount;
 
   if (this.loanAmount <= 0) {
     this.calculatedMonthlyInstallment = 0;
@@ -398,29 +404,39 @@ this.carId = 1;
     }
   }
 
-  private loadCarDetails(): void {
-    this.carService.getCarById(this.carId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (car:any) => {
-          this.car = car['data'];
-          this.carPrice = this.car.pricing.final_price;
-          console.log(this.car);
-          
-        },
-        error: (error) => {
-          console.error('Error loading car details:', error);
-        }
-      });
-  }
+private loadCarDetails(): void {
+  this.carService.getCarById(this.carId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (res: any) => {
+       this.carSignal.set(res.data);
+       this.price = this.carPrice();
+      },
+      error: (error) => {
+        console.error('Error loading car details:', error);
+      }
+    });
+}
 
   formatPrice(price: number): string {
     return price.toLocaleString();
   }
 
   bookVisit() {
+    console.log(this.car());
+    
   this.router.navigate(['/booking'], {
-    state: { carDetails: this.car }
+    state: { carDetails: this.car() }
   });
 }
+
+isModalOpen = false;
+
+  openFinancingModal() {
+    this.isModalOpen = true;
+  }
+
+  closeFinancingModal() {
+    this.isModalOpen = false;
+  }
 }

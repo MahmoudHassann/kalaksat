@@ -126,11 +126,17 @@
     text-align: center;
     padding: 16px;
   }
-
+.car-header{
+  display: flex;
+    align-items: center;
+}
   .car-image {
-    width: 80px;
-    height: 60px;
+    width: 120px;
+    height: 80px;
     margin-right: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 4px 0px #00000040;
+
     flex-shrink: 0;
 
     @media (max-width: 768px) {
@@ -190,7 +196,7 @@
     .car-specs {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
+      gap: 10px;
       flex-wrap: wrap;
 
       @media (max-width: 768px) {

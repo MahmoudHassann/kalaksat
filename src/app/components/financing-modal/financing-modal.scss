@@ -1,0 +1,273 @@
+// financing-modal.component.scss
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  
+  // Animation
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-container {
+ background: linear-gradient(179.58deg, #E02027 0.36%, #000000 70.16%);
+  border-radius: 12px;
+  max-width: 1100px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  
+  // Animation
+  animation: slideUp 0.4s ease-out;
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 0;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.phone-mockup {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+  position: relative;
+  height: 10rem;
+  img{
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+.modal-content {
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 40px 30px 30px;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 15px;
+  line-height: 1.3;
+}
+
+.modal-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0 0 30px;
+  line-height: 1.5;
+}
+
+.features-section {
+  margin-bottom: 35px;
+}
+
+.features-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 20px;
+  text-align: left;
+}
+
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  gap: 12px;
+  
+  .feature-icon {
+    color: #dc2626;
+    font-size: 20px;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  span {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.4;
+  }
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 18px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .modal-container {
+    margin: 10px;
+    max-height: 95vh;
+  }
+  
+  .modal-content {
+    padding: 30px 20px 25px;
+  }
+  
+  .modal-title {
+    font-size: 22px;
+  }
+  
+  .modal-subtitle {
+    font-size: 15px;
+  }
+  
+  .phone-screen {
+    width: 150px;
+    height: 280px;
+  }
+  
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .logo-text {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 10px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+  }
+  
+  .modal-subtitle {
+    font-size: 14px;
+    br {
+      display: none;
+    }
+  }
+  
+  .features-title {
+    font-size: 16px;
+  }
+  
+  .feature-item span {
+    font-size: 13px;
+  }
+  
+  .download-btn {
+    padding: 16px 30px;
+    font-size: 15px;
+  }
+}

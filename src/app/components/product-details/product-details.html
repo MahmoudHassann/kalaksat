@@ -1,7 +1,7 @@
-<div class="car-details-container" *ngIf="car && car != null; else loadingTemplate">
+<div class="car-details-container" *ngIf="car(); else loadingTemplate">
   <!-- Header -->
   <div class="car-header">
-    <h1 class="car-title">{{ car.full_name }}</h1>
+    <h1 class="car-title">{{ car().full_name }}</h1>
   </div>
 
   <!-- Main Content -->
@@ -9,7 +9,7 @@
     <!-- Gallery Section -->
     <div class="col-lg-6 col-md-12">
       <div class="gallery-container">
-        <p-galleria [value]="car.images" [responsiveOptions]="responsiveOptions"
+        <p-galleria [value]="car().images" [responsiveOptions]="responsiveOptions"
           [containerStyle]="{ 'max-width': '100%' }" [showThumbnails]="true" [showIndicators]="false"
           [showItemNavigators]="true" [circular]="true" [autoPlay]="false" [thumbnailsPosition]="'bottom'"
           [numVisible]="6">
@@ -73,7 +73,7 @@
 
             Gallery <span
               style="border-radius: 50px; padding: 5px; background-color: #EEEDED; width: 36px; height: 34px;">{{
-              car.images.length }}</span>
+              car().images.length }}</span>
           </button>
           <button type="button" class="btn imperfictions">
             <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,8 +104,8 @@
 
             </div>
             <div class="spec-content">
-              <h6>Fuel Economy <br>({{car.performance.fuel_economy.formate}})</h6>
-              <p class="spec-value">{{ car.specifications.body_style.name }}</p>
+              <h6>Fuel Economy <br>({{car().performance.fuel_economy.formate}})</h6>
+              <p class="spec-value">{{ car().specifications.body_style.name }}</p>
             </div>
           </div>
 
@@ -120,7 +120,7 @@
             </div>
             <div class="spec-content">
               <h6>Engine Capacity</h6>
-              <p class="spec-value">{{ car.performance.engine_capacity_cc }}</p>
+              <p class="spec-value">{{ car().performance.engine_capacity_cc }}</p>
             </div>
           </div>
 
@@ -139,7 +139,7 @@
             </div>
             <div class="spec-content">
               <h6>Horsepower</h6>
-              <p class="spec-value">{{ car.performance.horsepower.formate }}</p>
+              <p class="spec-value">{{ car().performance.horsepower.formate }}</p>
             </div>
           </div>
 
@@ -154,7 +154,7 @@
             </div>
             <div class="spec-content">
               <h6>Transmission</h6>
-              <p class="spec-value">{{ car.specifications.transmission_type.name }}</p>
+              <p class="spec-value">{{ car().specifications.transmission_type.name }}</p>
             </div>
           </div>
 
@@ -169,7 +169,7 @@
             </div>
             <div class="spec-content">
               <h6>Size</h6>
-              <p class="spec-value">{{ car.appearance.size.formate }}</p>
+              <p class="spec-value">{{ car().appearance.size.formate }}</p>
             </div>
           </div>
           <div class="spec-item red-icon">
@@ -184,7 +184,7 @@
             </div>
             <div class="spec-content">
               <h6>Engine Type</h6>
-              <p class="spec-value">{{ car.performance.engine_type.name }}</p>
+              <p class="spec-value">{{ car().performance.engine_type.name }}</p>
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
           <h5>Pricing</h5>
           <div class="price-display">
             <span class="price" style="color: #000;">EGP</span>
-            <span class="price">{{ formatPrice(car.pricing.final_price) }}</span>
+            <span class="price">{{ formatPrice(car().pricing.final_price) }}</span>
           </div>
         </div>
 
@@ -203,9 +203,14 @@
           <button type="button" class="btn btn-danger btn-lg" style="flex: 1;" (click)="bookVisit()">
             Book Visit
           </button>
-          <button type="button" class="btn btn-outline-danger btn-lg" style="flex: 1;">
+          <button type="button" class="btn btn-outline-danger btn-lg" style="flex: 1;" (click)="openFinancingModal()">
             Financing
           </button>
+           <!-- Financing Modal -->
+      <app-financing-modal 
+        [isOpen]="isModalOpen" 
+        (modalClosed)="closeFinancingModal()">
+      </app-financing-modal>
         </div>
       </div>
     </div>
@@ -240,7 +245,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car?.tabs?.carSummary[0]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[0]?.title }}</h6>
                   </div>
                 </div>
               </div>
@@ -256,7 +261,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car?.tabs?.carSummary[1]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[1]?.title }}</h6>
                   </div>
                 </div>
               </div>
@@ -272,7 +277,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car?.tabs?.carSummary[2]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[2]?.title }}</h6>
                   </div>
                 </div>
               </div>
@@ -288,7 +293,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car?.tabs?.carSummary[3]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[3]?.title }}</h6>
                   </div>
                 </div>
               </div>
@@ -303,7 +308,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car?.tabs?.carSummary[4]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[4]?.title }}</h6>
                   </div>
                 </div>
               </div>
@@ -320,61 +325,61 @@
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Brand</p>
-                    <p class="headerValue">{{car.brand.name}}</p>
+                    <p class="headerValue">{{car().brand.name}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Model</p>
-                    <p class="headerValue">{{car.model.name}}</p>
+                    <p class="headerValue">{{car().model.name}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Year</p>
-                    <p class="headerValue">{{car.model_year}}</p>
+                    <p class="headerValue">{{car().model_year}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Trim</p>
-                    <p class="headerValue">{{car.trim.name}}</p>
+                    <p class="headerValue">{{car().trim.name}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Color</p>
-                    <p class="headerValue">{{car.appearance.color}}</p>
+                    <p class="headerValue">{{car().appearance.color}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Kilometers</p>
-                    <p class="headerValue">{{car.performance.mileage.formate}}</p>
+                    <p class="headerValue">{{car().performance.mileage.formate}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Transmission</p>
-                    <p class="headerValue">{{car.specifications.transmission_type.name}}</p>
+                    <p class="headerValue">{{car().specifications.transmission_type.name}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Body Style</p>
-                    <p class="headerValue">{{car.specifications.body_style.name}}</p>
+                    <p class="headerValue">{{car().specifications.body_style.name}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">License Valid to</p>
-                    <p class="headerValue">{{car.license_valid_until || '-'}}</p>
+                    <p class="headerValue">{{car().license_valid_until || '-'}}</p>
                   </div>
                 </div>
               <div class="col-md-2 col-sm-3 col-4">
                   <div class="overview-items">
                     <p class="headerName">Engine Capacity CC</p>
-                    <p class="headerValue">{{car.performance.engine_capacity_cc}}</p>
+                    <p class="headerValue">{{car().performance.engine_capacity_cc}}</p>
                   </div>
                 </div>
               </div>
@@ -430,7 +435,7 @@
                   carPrice
                 </label>
                 <!-- Display input and slider based on mode -->
-                <p-inputnumber  [(ngModel)]="carPrice" inputId="currency-eg"
+                <p-inputnumber  [(ngModel)]="price" inputId="currency-eg"
                   mode="currency" currency="EGP" locale="en-US" [min]="minCarPrice" [max]="maxCarPrice" (ngModelChange)="onCarPriceChange()" disabled />
               </div>
 

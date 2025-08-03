@@ -12,8 +12,8 @@
     <!-- Quick Links -->
     <div class="footer-col">
       <h4>Quick Links</h4>
-      <a routerLink="/cars/new">New Cars</a>
-      <a routerLink="/cars/used">Used Cars</a>
+      <a [routerLink]="['/products']" [queryParams]="{ mode: 'new' }" queryParamsHandling="merge">New Cars</a>
+      <a [routerLink]="['/products']" [queryParams]="{ mode: 'used' }" queryParamsHandling="merge">Used Cars</a>
       <a routerLink="/finance">Finance</a>
     </div>
 

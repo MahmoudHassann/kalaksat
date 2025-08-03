@@ -1,0 +1,54 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <button class="close-btn" (click)="closeModal()" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Phone Mockup -->
+    <div class="phone-mockup">
+      <img src="img/kalksatmobile.png" alt="kalksat-mockup-mobile" class="img-fluid">
+    </div>
+
+    <!-- Modal Content -->
+    <div class="modal-content">
+      <h2 class="modal-title">Get Financing with Klaksat App!</h2>
+      <p class="modal-subtitle">
+        Download the Klaksat App to enjoy a fast, hassle-free<br>
+        financing experience.
+      </p>
+
+      <!-- Features List -->
+      <div class="features-section">
+        <h3 class="features-title">Why Download Klaksat App?</h3>
+        
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">•</div>
+            <span>Fast and Effortless Process</span>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">•</div>
+            <span>Choose the car you love and submit your financing request effortlessly</span>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">•</div>
+            <span>Fast approval. No waiting!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Button -->
+      <button class="download-btn" (click)="downloadApp()">
+        Download App
+      </button>
+    </div>
+  </div>
+</div>
