@@ -32,13 +32,15 @@
               </div>
               <div class="header-img">
                 <img src="img/header.png" alt="bg-car" class="img-fluid" *ngIf="slide.carType === 'sedan'">
-                <svg 
+                <img src="img/White.png" alt="bg-car" class="img-fluid" *ngIf="slide.carType === 'suv'">
+                <img src="img/black.png" alt="bg-car" class="img-fluid" *ngIf="slide.carType === 'sports'">
+                <!-- <svg 
                   width="400" 
                   height="200" 
                   viewBox="0 0 400 200" 
                   xmlns="http://www.w3.org/2000/svg"
                   [attr.aria-label]="'Car illustration for ' + slide.title"
-                >
+                > -->
                   <!-- Sedan SVG -->
                   <!-- <g *ngIf="slide.carType === 'sedan'">
                     <ellipse cx="200" cy="120" rx="150" ry="40" fill="#ff4757" opacity="0.9"/>
@@ -54,7 +56,7 @@
                   </g> -->
                   
                   <!-- SUV SVG -->
-                  <g *ngIf="slide.carType === 'suv'">
+                  <!-- <g *ngIf="slide.carType === 'suv'">
                     <rect x="80" y="60" width="240" height="80" rx="20" fill="#2ebf91"/>
                     <rect x="90" y="40" width="220" height="40" rx="15" fill="#2ebf91"/>
                     <rect x="100" y="45" width="60" height="25" rx="10" fill="#333"/>
@@ -65,10 +67,10 @@
                     <circle cx="130" cy="150" r="18" fill="#666"/>
                     <circle cx="270" cy="150" r="18" fill="#666"/>
                     <rect x="320" y="85" width="15" height="30" rx="5" fill="#1a1a1a"/>
-                  </g>
+                  </g> -->
                   
                   <!-- Sports Car SVG -->
-                  <g *ngIf="slide.carType === 'sports'">
+                  <!-- <g *ngIf="slide.carType === 'sports'">
                     <path d="M80 110 Q80 80 120 80 L280 80 Q320 80 320 110 L320 130 Q320 150 300 150 L100 150 Q80 150 80 130 Z" fill="#8360c3"/>
                     <path d="M90 100 Q90 70 130 70 L270 70 Q310 70 310 100 L310 110 L90 110 Z" fill="#8360c3"/>
                     <path d="M110 75 Q110 65 130 65 L180 65 Q190 65 190 75 L190 95 L110 95 Z" fill="#333"/>
@@ -78,8 +80,8 @@
                     <circle cx="130" cy="150" r="20" fill="#666"/>
                     <circle cx="270" cy="150" r="20" fill="#666"/>
                     <ellipse cx="315" cy="100" rx="8" ry="12" fill="#fff" opacity="0.9"/>
-                  </g>
-                </svg>
+                  </g> -->
+               <!--  </svg> -->
               </div>
             </div>
           </div>
