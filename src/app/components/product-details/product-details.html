@@ -9,18 +9,18 @@
     <!-- Gallery Section -->
     <div class="col-lg-6 col-md-12">
       <div class="gallery-container">
-        <p-galleria [value]="car().images" [responsiveOptions]="responsiveOptions"
+        <p-galleria [value]=" ['img/car1.png','img/car2.jpg','img/car3.jpg','img/car4.jpg']" [responsiveOptions]="responsiveOptions"
           [containerStyle]="{ 'max-width': '100%' }" [showThumbnails]="true" [showIndicators]="false"
           [showItemNavigators]="true" [circular]="true" [autoPlay]="false" [thumbnailsPosition]="'bottom'"
           [numVisible]="6">
 
           <ng-template pTemplate="item" let-item>
-            <img [src]="item.url" alt="car-mainImage" class="gallery-main-image" />
+            <img [src]="item" alt="car-mainImage" class="gallery-main-image" />
           </ng-template>
 
           <ng-template pTemplate="thumbnail" let-item>
             <div class="gallery-thumbnail-wrapper">
-              <img [src]="item.thumbnailUrl || item.url" alt="car-thumbnailImage" class="gallery-thumbnail" />
+              <img [src]="item || item.url" alt="car-thumbnailImage" class="gallery-thumbnail" />
             </div>
           </ng-template>
         </p-galleria>
@@ -73,7 +73,7 @@
 
             Gallery <span
               style="border-radius: 50px; padding: 5px; background-color: #EEEDED; width: 36px; height: 34px;">{{
-              car().images.length }}</span>
+              car().images.length || 4 }}</span>
           </button>
           <button type="button" class="btn imperfictions">
             <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +245,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[0]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[0]?.title }} 1 repainted part</h6>
                   </div>
                 </div>
               </div>
@@ -261,7 +261,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[1]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[1]?.title }} No mechanical problems</h6>
                   </div>
                 </div>
               </div>
@@ -277,7 +277,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[2]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[2]?.title }} New front and back tires</h6>
                   </div>
                 </div>
               </div>
@@ -293,7 +293,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[3]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[3]?.title }} Car in warranty</h6>
                   </div>
                 </div>
               </div>
@@ -308,7 +308,7 @@
 
                   </div>
                   <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[4]?.title }}</h6>
+                    <h6>{{ car()?.tabs?.carSummary[4]?.title }} New maintenance in the authorized service center</h6>
                   </div>
                 </div>
               </div>
