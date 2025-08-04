@@ -650,9 +650,9 @@
   </div>
 }
    <!-- Cars Grid -->
-@else if (UsedCars().length > 0) {
+@else if (Cars().length > 0) {
   <div class="row">
-    @for (car of UsedCars(); track car.id) {
+    @for (car of Cars(); track car.id) {
       <div class="col-lg-6 col-xl-4 mb-4">
         <app-product-card [carData]="car" [routerLink]="[`/product/${car.id}`]"></app-product-card>
       </div>
@@ -905,9 +905,9 @@
   </div>
 }
    <!-- Cars Grid -->
-@else if (NewCars().length > 0) {
+@else if (Cars().length > 0) {
   <div class="row">
-    @for (car of NewCars(); track car.id) {
+    @for (car of Cars(); track car.id) {
       <div class="col-lg-6 col-xl-4 mb-4">
         <app-product-card [carData]="car" [routerLink]="[`/product/${car.id}`]"></app-product-card>
       </div>

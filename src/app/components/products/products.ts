@@ -446,6 +446,7 @@ handleClickOutside(event: MouseEvent) {
     const payload = {
       ...value,
       price_range: priceRange,
+      vehicle_status:''
     };
 
     this._httpClinet.post<CarCardData[]>(url, (mode === 'vip' || mode === 'electric') ? {vehicle_status:mode} : payload).subscribe({
