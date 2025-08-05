@@ -5,6 +5,7 @@ import { Step2 } from './step2/step2';
 import { Step3 } from './step3/step3';
 import { CommonModule,Location  } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-booking-details',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class BookingDetails implements OnInit {
  carDetails?: any;
-  
+  environment = environment;
   currentStep = 1;
   bookingData: BookingData = {};
 

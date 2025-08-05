@@ -9,7 +9,7 @@
         </app-step3>
     <div class="car-details-header" [ngClass]="currentStep === 3 ?'step3':'col-12 col-md-5'">
       <div class="car-header"><div class="car-image">
-          <img [src]="carDetails?.images[0] || 'img/car1.png'" [alt]="carDetails?.full_name" />
+          <img [src]="environment.photoUrl + carDetails.images[0].location || 'img/car1.png'" [alt]="carDetails?.full_name" />
         </div>
         <h5 class="car-name">{{ carDetails?.full_name }}</h5>
       </div>

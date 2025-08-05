@@ -147,7 +147,11 @@
     <div class="grid brand-grid">
       @for (b of visibleBrands(); track b) {
         <button type="button" class="chip brand" [class.active]="selectedBrands().has(b)" (click)="toggleBrand(b)">
-          <span class="logo"></span>
+          <span class="logo">
+             @if(b.image && b.image != null){
+            <img [src]="environment.photoUrl + b.image" alt="brand-image" class="img-fluid">
+             }
+          </span>
           <span class="label">{{ b.name }}</span>
         </button>
       }
@@ -203,7 +207,11 @@
     <div class="grid body-grid">
       @for (b of BodyStyles(); track b) {
         <button type="button" class="chip body" [class.active]="selectedBodyStyles().has(b)" (click)="toggleBodyStyle(b)">
-          <span class="icon car"></span>
+          <span class="icon car">
+            @if(b.image && b.image != null){
+            <img [src]="environment.photoUrl + b.image" alt="bodystyle-image">
+            }
+          </span>
           <span class="label">{{ b.name }}</span>
         </button>
       }

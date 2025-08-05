@@ -351,6 +351,7 @@
       .sign-in-header {
         display: flex;
         align-items: flex-start;
+        flex-direction: column;
         gap: 16px;
 
         .user-icon-large {

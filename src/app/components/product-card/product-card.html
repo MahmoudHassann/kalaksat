@@ -3,7 +3,7 @@
         <!-- Image Section -->
         <div class="position-relative">
           <img 
-            [ngSrc]="carData.images[0] || 'img/product.png'" 
+            [ngSrc]="getPhotoUrl(carData.images[0]?.location)" 
             alt="car_card"
             class="card-img-top car-image"
             width="424"

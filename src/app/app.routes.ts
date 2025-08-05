@@ -9,9 +9,9 @@ import { About } from './components/about/about';
 import { PersonalInfo } from './components/personal-info/personal-info';
 
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:'full'},
-    {path:'login',component:Auth},
+    { path: '', pathMatch: 'full', component: Home },
     {path:'home',component:Home},
+    {path:'login',component:Auth},
     {path:'products',component:Products},
     {path:'product/:id',component:ProductDetails},
     {path:'finance',component:Finance},

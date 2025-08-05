@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { CarCardData } from './product';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -16,5 +17,11 @@ export class ProductCard {
   if (discount >= 1_000_000) return `${Math.round(discount / 1_000_000)}M off`;
   if (discount >= 1_000) return `${Math.round(discount / 1_000)}K off`;
   return `${discount} off`;
+}
+getPhotoUrl(path?: string): string {
+  if (!path) {
+    return 'assets/img/product.png'; // default image
+  }
+  return `${environment.photoUrl}${path}`;
 }
 }

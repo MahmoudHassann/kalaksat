@@ -9,10 +9,10 @@
     <!-- Gallery Section -->
     <div class="col-lg-6 col-md-12">
       <div class="gallery-container">
-        <p-galleria [value]=" ['img/car1.png','img/car2.jpg','img/car3.jpg','img/car4.jpg']" [responsiveOptions]="responsiveOptions"
+        <p-galleria [value]="galleryImages" [responsiveOptions]="responsiveOptions"
           [containerStyle]="{ 'max-width': '100%' }" [showThumbnails]="true" [showIndicators]="false"
           [showItemNavigators]="true" [circular]="true" [autoPlay]="false" [thumbnailsPosition]="'bottom'"
-          [numVisible]="6">
+          [numVisible]="galleryImages.length">
 
           <ng-template pTemplate="item" let-item>
             <img [src]="item" alt="car-mainImage" class="gallery-main-image" />
@@ -217,14 +217,14 @@
   </div>
 
   <!-- Tabs Section -->
-  <div class="tabs-section col-6">
+  <div class="tabs-section col-lg-6 col-12">
     <p-tabs value="0">
       <!-- Tab Headers -->
       <p-tablist>
         <p-tab value="0">Car Summary</p-tab>
         <p-tab value="1">Overview</p-tab>
-        <p-tab value="2">Inspection</p-tab>
-        <p-tab value="3">Features</p-tab>
+        <p-tab value="conditions">Inspection</p-tab>
+        <p-tab value="features">Features</p-tab>
         <p-tab value="4">Financing</p-tab>
       </p-tablist>
 
@@ -233,86 +233,19 @@
         <!-- Car Summary -->
         <p-tabpanel value="0">
           <div class="car-summary-content">
-            <div class="row">
-              <div class="col-md-4 col-sm-6 col-12 summary-item">
-                <div class="feature-card">
-                  <div class="feature-icon red-icon">
-                    <svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M29.3333 20.6667H23.8333V24.3333H29.3333V20.6667ZM34.8333 33.5H0V15.1667L14.6667 0.5H33C33.4862 0.5 33.9525 0.693154 34.2964 1.03697C34.6402 1.38079 34.8333 1.8471 34.8333 2.33333V33.5ZM16.1883 4.16667L5.18833 15.1667H31.1667V4.16667H16.1883Z"
-                        fill="#E02027" />
-                    </svg>
-
-                  </div>
-                  <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[0]?.title }} 1 repainted part</h6>
-                  </div>
+           <div class="row">
+            <div class="col-md-4 col-sm-6 col-12 summary-item" *ngFor="let flag of car()?.flags">
+              <div class="feature-card">
+                <div class="feature-icon red-icon">
+                  <!-- Flag image instead of SVG -->
+                  <img [src]="environment.photoUrl + flag.image" width="45" height="44" alt="flag" />
                 </div>
-              </div>
-
-              <div class="col-md-4 col-sm-6 col-12 summary-item">
-                <div class="feature-card">
-                  <div class="feature-icon red-icon">
-                    <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.16602 18.3333V29.3333M22.666 9.16663V14.6666M18.9993 9.16663H26.3327M9.83268 23.8333H6.16602M11.666 18.3333H15.3327L18.9993 14.6666H25.1997C25.5401 14.6668 25.8737 14.7617 26.1631 14.9408C26.4526 15.1199 26.6865 15.376 26.8387 15.6805L29.4933 20.9861C29.6455 21.2906 29.8794 21.5467 30.1689 21.7258C30.4584 21.9048 30.792 21.9998 31.1323 22H33.666V18.3333H37.3327C37.8189 18.3333 38.2852 18.5264 38.629 18.8703C38.9729 19.2141 39.166 19.6804 39.166 20.1666V31.1666C39.166 31.6529 38.9729 32.1192 38.629 32.463C38.2852 32.8068 37.8189 33 37.3327 33H33.666V29.3333H28.166V33C28.166 33.4862 27.9729 33.9525 27.629 34.2963C27.2852 34.6401 26.8189 34.8333 26.3327 34.8333H19.9802C19.6784 34.8333 19.3813 34.7589 19.1152 34.6166C18.8492 34.4743 18.6223 34.2685 18.4548 34.0175L15.3327 29.3333H11.666V18.3333Z"
-                        stroke="#E02027" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                  </div>
-                  <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[1]?.title }} No mechanical problems</h6>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-6 col-12 summary-item">
-                <div class="feature-card">
-                  <div class="feature-icon red-icon">
-                    <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M40.6132 17.3617C40.6115 17.7715 40.4814 18.1704 40.2414 18.5025C40.0014 18.8346 39.6634 19.0832 39.2749 19.2134L35.8282 20.3501C34.7461 20.7119 33.7633 21.3213 32.9581 22.1297C32.1529 22.9381 31.5474 23.9232 31.1899 25.0067L29.9982 28.4351C29.8613 28.8176 29.6121 29.1499 29.2832 29.3884C29.0339 29.5679 28.7456 29.6858 28.442 29.7324C28.1383 29.7789 27.8279 29.7528 27.5363 29.6562C27.2447 29.5596 26.9801 29.3952 26.7643 29.1766C26.5485 28.9579 26.3876 28.6913 26.2949 28.3984L25.1399 24.9517C24.7674 23.8649 24.1385 22.8839 23.3065 22.0917C22.502 21.2659 21.5167 20.6383 20.4282 20.2584L16.9815 19.1034C16.5912 18.9805 16.2502 18.7365 16.008 18.4067C15.7704 18.0719 15.6428 17.6715 15.6428 17.2609C15.6428 16.8503 15.7704 16.4499 16.008 16.1151C16.2517 15.7756 16.5992 15.5246 16.998 15.4001L20.4264 14.2451C21.5298 13.874 22.529 13.2455 23.3414 12.4117C24.1664 11.5996 24.7952 10.6077 25.1747 9.51506L26.3114 6.12339C26.4188 5.73588 26.6507 5.39446 26.9714 5.15172C27.2939 4.89293 27.6945 4.75079 28.108 4.74839C28.5176 4.73851 28.9205 4.85362 29.263 5.07839C29.6113 5.29694 29.8761 5.62624 30.0147 6.01339L31.1697 9.51506C31.5492 10.6077 32.178 11.5996 33.003 12.4117C33.8102 13.2431 34.8029 13.8714 35.8997 14.2451L39.328 15.4551C39.7139 15.5758 40.0491 15.8207 40.2814 16.1517C40.5197 16.5074 40.6389 16.9309 40.6132 17.3617ZM22.5182 30.0667C22.5173 30.4406 22.4022 30.8052 22.1882 31.1117C21.9666 31.4098 21.6597 31.6336 21.3082 31.7534L18.8332 32.5784C18.1398 32.8229 17.5123 33.2245 16.9999 33.7517C16.4776 34.2682 16.0768 34.8945 15.8265 35.5851L14.9649 38.0417C14.845 38.3933 14.6213 38.7002 14.3232 38.9217C14.0145 39.1387 13.6463 39.2551 13.269 39.2551C12.8917 39.2551 12.5236 39.1387 12.2149 38.9217C11.9168 38.7002 11.693 38.3933 11.5732 38.0417L10.7665 35.5851C10.5157 34.8943 10.1143 34.268 9.59135 33.7517C9.07487 33.2294 8.44862 32.8286 7.75802 32.5784L5.28302 31.7717C4.92905 31.647 4.62188 31.4166 4.40302 31.1117C4.18254 30.8073 4.06093 30.4425 4.05469 30.0667C4.06129 29.6887 4.18464 29.3219 4.40782 29.0167C4.631 28.7114 4.9431 28.4827 5.30135 28.3617L7.75802 27.5551C8.4461 27.2999 9.07096 26.8992 9.58988 26.3802C10.1088 25.8613 10.5095 25.2365 10.7647 24.5484L11.5897 22.1284C11.6996 21.7815 11.9102 21.4752 12.1947 21.2484C12.4921 21.0218 12.8518 20.8916 13.2253 20.8752C13.5989 20.8588 13.9685 20.957 14.2847 21.1567C14.5982 21.3731 14.8402 21.6792 14.9814 22.0367L15.8064 24.5484C16.0615 25.2365 16.4622 25.8613 16.9812 26.3802C17.5001 26.8992 18.1249 27.2999 18.813 27.5551L21.2697 28.4167C21.6205 28.5285 21.9238 28.7544 22.1314 29.0584C22.3643 29.3446 22.4993 29.6981 22.5164 30.0667"
-                        fill="#E02027" />
-                    </svg>
-
-                  </div>
-                  <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[2]?.title }} New front and back tires</h6>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-6 col-12 summary-item">
-                <div class="feature-card">
-                  <div class="feature-icon red-icon">
-                    <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M40.6132 17.3617C40.6115 17.7715 40.4814 18.1704 40.2414 18.5025C40.0014 18.8346 39.6634 19.0832 39.2749 19.2134L35.8282 20.3501C34.7461 20.7119 33.7633 21.3213 32.9581 22.1297C32.1529 22.9381 31.5474 23.9232 31.1899 25.0067L29.9982 28.4351C29.8613 28.8176 29.6121 29.1499 29.2832 29.3884C29.0339 29.5679 28.7456 29.6858 28.442 29.7324C28.1383 29.7789 27.8279 29.7528 27.5363 29.6562C27.2447 29.5596 26.9801 29.3952 26.7643 29.1766C26.5485 28.9579 26.3876 28.6913 26.2949 28.3984L25.1399 24.9517C24.7674 23.8649 24.1385 22.8839 23.3065 22.0917C22.502 21.2659 21.5167 20.6383 20.4282 20.2584L16.9815 19.1034C16.5912 18.9805 16.2502 18.7365 16.008 18.4067C15.7704 18.0719 15.6428 17.6715 15.6428 17.2609C15.6428 16.8503 15.7704 16.4499 16.008 16.1151C16.2517 15.7756 16.5992 15.5246 16.998 15.4001L20.4264 14.2451C21.5298 13.874 22.529 13.2455 23.3414 12.4117C24.1664 11.5996 24.7952 10.6077 25.1747 9.51506L26.3114 6.12339C26.4188 5.73588 26.6507 5.39446 26.9714 5.15172C27.2939 4.89293 27.6945 4.75079 28.108 4.74839C28.5176 4.73851 28.9205 4.85362 29.263 5.07839C29.6113 5.29694 29.8761 5.62624 30.0147 6.01339L31.1697 9.51506C31.5492 10.6077 32.178 11.5996 33.003 12.4117C33.8102 13.2431 34.8029 13.8714 35.8997 14.2451L39.328 15.4551C39.7139 15.5758 40.0491 15.8207 40.2814 16.1517C40.5197 16.5074 40.6389 16.9309 40.6132 17.3617ZM22.5182 30.0667C22.5173 30.4406 22.4022 30.8052 22.1882 31.1117C21.9666 31.4098 21.6597 31.6336 21.3082 31.7534L18.8332 32.5784C18.1398 32.8229 17.5123 33.2245 16.9999 33.7517C16.4776 34.2682 16.0768 34.8945 15.8265 35.5851L14.9649 38.0417C14.845 38.3933 14.6213 38.7002 14.3232 38.9217C14.0145 39.1387 13.6463 39.2551 13.269 39.2551C12.8917 39.2551 12.5236 39.1387 12.2149 38.9217C11.9168 38.7002 11.693 38.3933 11.5732 38.0417L10.7665 35.5851C10.5157 34.8943 10.1143 34.268 9.59135 33.7517C9.07487 33.2294 8.44862 32.8286 7.75802 32.5784L5.28302 31.7717C4.92905 31.647 4.62188 31.4166 4.40302 31.1117C4.18254 30.8073 4.06093 30.4425 4.05469 30.0667C4.06129 29.6887 4.18464 29.3219 4.40782 29.0167C4.631 28.7114 4.9431 28.4827 5.30135 28.3617L7.75802 27.5551C8.4461 27.2999 9.07096 26.8992 9.58988 26.3802C10.1088 25.8613 10.5095 25.2365 10.7647 24.5484L11.5897 22.1284C11.6996 21.7815 11.9102 21.4752 12.1947 21.2484C12.4921 21.0218 12.8518 20.8916 13.2253 20.8752C13.5989 20.8588 13.9685 20.957 14.2847 21.1567C14.5982 21.3731 14.8402 21.6792 14.9814 22.0367L15.8064 24.5484C16.0615 25.2365 16.4622 25.8613 16.9812 26.3802C17.5001 26.8992 18.1249 27.2999 18.813 27.5551L21.2697 28.4167C21.6205 28.5285 21.9238 28.7544 22.1314 29.0584C22.3643 29.3446 22.4993 29.6981 22.5164 30.0667"
-                        fill="#E02027" />
-                    </svg>
-
-                  </div>
-                  <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[3]?.title }} Car in warranty</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 col-12 summary-item">
-                <div class="feature-card">
-                  <div class="feature-icon red-icon">
-                    <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M40.6132 17.3617C40.6115 17.7715 40.4814 18.1704 40.2414 18.5025C40.0014 18.8346 39.6634 19.0832 39.2749 19.2134L35.8282 20.3501C34.7461 20.7119 33.7633 21.3213 32.9581 22.1297C32.1529 22.9381 31.5474 23.9232 31.1899 25.0067L29.9982 28.4351C29.8613 28.8176 29.6121 29.1499 29.2832 29.3884C29.0339 29.5679 28.7456 29.6858 28.442 29.7324C28.1383 29.7789 27.8279 29.7528 27.5363 29.6562C27.2447 29.5596 26.9801 29.3952 26.7643 29.1766C26.5485 28.9579 26.3876 28.6913 26.2949 28.3984L25.1399 24.9517C24.7674 23.8649 24.1385 22.8839 23.3065 22.0917C22.502 21.2659 21.5167 20.6383 20.4282 20.2584L16.9815 19.1034C16.5912 18.9805 16.2502 18.7365 16.008 18.4067C15.7704 18.0719 15.6428 17.6715 15.6428 17.2609C15.6428 16.8503 15.7704 16.4499 16.008 16.1151C16.2517 15.7756 16.5992 15.5246 16.998 15.4001L20.4264 14.2451C21.5298 13.874 22.529 13.2455 23.3414 12.4117C24.1664 11.5996 24.7952 10.6077 25.1747 9.51506L26.3114 6.12339C26.4188 5.73588 26.6507 5.39446 26.9714 5.15172C27.2939 4.89293 27.6945 4.75079 28.108 4.74839C28.5176 4.73851 28.9205 4.85362 29.263 5.07839C29.6113 5.29694 29.8761 5.62624 30.0147 6.01339L31.1697 9.51506C31.5492 10.6077 32.178 11.5996 33.003 12.4117C33.8102 13.2431 34.8029 13.8714 35.8997 14.2451L39.328 15.4551C39.7139 15.5758 40.0491 15.8207 40.2814 16.1517C40.5197 16.5074 40.6389 16.9309 40.6132 17.3617ZM22.5182 30.0667C22.5173 30.4406 22.4022 30.8052 22.1882 31.1117C21.9666 31.4098 21.6597 31.6336 21.3082 31.7534L18.8332 32.5784C18.1398 32.8229 17.5123 33.2245 16.9999 33.7517C16.4776 34.2682 16.0768 34.8945 15.8265 35.5851L14.9649 38.0417C14.845 38.3933 14.6213 38.7002 14.3232 38.9217C14.0145 39.1387 13.6463 39.2551 13.269 39.2551C12.8917 39.2551 12.5236 39.1387 12.2149 38.9217C11.9168 38.7002 11.693 38.3933 11.5732 38.0417L10.7665 35.5851C10.5157 34.8943 10.1143 34.268 9.59135 33.7517C9.07487 33.2294 8.44862 32.8286 7.75802 32.5784L5.28302 31.7717C4.92905 31.647 4.62188 31.4166 4.40302 31.1117C4.18254 30.8073 4.06093 30.4425 4.05469 30.0667C4.06129 29.6887 4.18464 29.3219 4.40782 29.0167C4.631 28.7114 4.9431 28.4827 5.30135 28.3617L7.75802 27.5551C8.4461 27.2999 9.07096 26.8992 9.58988 26.3802C10.1088 25.8613 10.5095 25.2365 10.7647 24.5484L11.5897 22.1284C11.6996 21.7815 11.9102 21.4752 12.1947 21.2484C12.4921 21.0218 12.8518 20.8916 13.2253 20.8752C13.5989 20.8588 13.9685 20.957 14.2847 21.1567C14.5982 21.3731 14.8402 21.6792 14.9814 22.0367L15.8064 24.5484C16.0615 25.2365 16.4622 25.8613 16.9812 26.3802C17.5001 26.8992 18.1249 27.2999 18.813 27.5551L21.2697 28.4167C21.6205 28.5285 21.9238 28.7544 22.1314 29.0584C22.3643 29.3446 22.4993 29.6981 22.5164 30.0667"
-                        fill="#E02027" />
-                    </svg>
-
-                  </div>
-                  <div class="feature-content">
-                    <h6>{{ car()?.tabs?.carSummary[4]?.title }} New maintenance in the authorized service center</h6>
-                  </div>
+                <div class="feature-content">
+                  <h6>{{ flag.value }}</h6>
                 </div>
               </div>
             </div>
+          </div>
           </div>
 
         </p-tabpanel>
@@ -322,61 +255,61 @@
           <div class="tab-content">
             <div class="overview-card">
                 <div class="row">
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Brand</p>
                     <p class="headerValue">{{car().brand.name}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Model</p>
                     <p class="headerValue">{{car().model.name}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Year</p>
                     <p class="headerValue">{{car().model_year}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Trim</p>
                     <p class="headerValue">{{car().trim.name}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Color</p>
                     <p class="headerValue">{{car().appearance.color}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Kilometers</p>
                     <p class="headerValue">{{car().performance.mileage.formate}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Transmission</p>
                     <p class="headerValue">{{car().specifications.transmission_type.name}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Body Style</p>
                     <p class="headerValue">{{car().specifications.body_style.name}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">License Valid to</p>
                     <p class="headerValue">{{car().license_valid_until || '-'}}</p>
                   </div>
                 </div>
-              <div class="col-md-2 col-sm-3 col-4">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                   <div class="overview-items">
                     <p class="headerName">Engine Capacity CC</p>
                     <p class="headerValue">{{car().performance.engine_capacity_cc}}</p>
@@ -387,45 +320,41 @@
           </div>
         </p-tabpanel>
 
-        <!-- Inspection -->
-      <p-tabpanel value="2">
+        <!-- INSPECTION -->
+<p-tabpanel value="conditions">
   <div class="tab-content">
     <div class="condition-categories">
-      
-      <div class="condition-item" 
-           *ngFor="let item of getCategoryItems('2')"
-           (click)="openConditionItem('2', item.category)">
+      <div class="condition-item"
+           *ngFor="let item of conditionCategories"
+           (click)="conditionCategories.length && openConditionItem('conditions', item.category)">
         <div class="condition-header">
           <h3>{{ item.title }}</h3>
           <i class="arrow-icon">&#8250;</i>
         </div>
       </div>
-
     </div>
   </div>
 </p-tabpanel>
 
-        <!-- Features -->
-       <p-tabpanel value="3">
+<!-- FEATURES -->
+<p-tabpanel value="features">
   <div class="tab-content">
     <div class="condition-categories">
-      
-      <div class="condition-item" 
-           *ngFor="let item of getCategoryItems('3')"
-           (click)="openConditionItem('3', item.category)">
+      <div class="condition-item"
+           *ngFor="let item of featureCategories"
+           (click)="featureCategories.length && openConditionItem('features', item.category)">
         <div class="condition-header">
           <h3>{{ item.title }}</h3>
           <i class="arrow-icon">&#8250;</i>
         </div>
       </div>
-
     </div>
   </div>
 </p-tabpanel>
 
         <!-- Financing -->
         <p-tabpanel value="4">
-          <div class="tab-content">
+          <div class="tab-content finance">
             <div class="overview-card">
             <div class="finance-grid">
              <div class="calculator-content">
@@ -532,64 +461,60 @@
 </ng-template>
 
 <!-- Popup Modal -->
-<div class="popup-overlay" [class.active]="isPopupOpen" (click)="onBackdropClick($event)">
-  <div class="popup-container" *ngIf="currentTabConfig">
-    
-    <!-- Popup Header -->
+<div class="popup-overlay" [class.active]="isPopupOpen" (click)="closePopup()">
+  <div class="popup-container" *ngIf="currentTabConfig" (click)="$event.stopPropagation()">
+
     <div class="popup-header">
       <div class="car-info">
-        <img src="img/car1.png" alt="Car" class="car-icon">
+        <img [src]="environment.photoUrl + car().images[0].location" alt="Car" class="car-icon" />
         <div class="car-details">
           <h2>{{ currentTabConfig.title }}</h2>
           <p>{{ currentTabConfig.subtitle }}</p>
         </div>
       </div>
-      <button class="close-btn" (click)="closePopup()">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15 16.75L8.875 22.875C8.64583 23.1042 8.35417 23.2188 8 23.2188C7.64583 23.2188 7.35417 23.1042 7.125 22.875C6.89583 22.6458 6.78125 22.3542 6.78125 22C6.78125 21.6458 6.89583 21.3542 7.125 21.125L13.25 15L7.125 8.875C6.89583 8.64583 6.78125 8.35417 6.78125 8C6.78125 7.64583 6.89583 7.35417 7.125 7.125C7.35417 6.89583 7.64583 6.78125 8 6.78125C8.35417 6.78125 8.64583 6.89583 8.875 7.125L15 13.25L21.125 7.125C21.3542 6.89583 21.6458 6.78125 22 6.78125C22.3542 6.78125 22.6458 6.89583 22.875 7.125C23.1042 7.35417 23.2188 7.64583 23.2188 8C23.2188 8.35417 23.1042 8.64583 22.875 8.875L16.75 15L22.875 21.125C23.1042 21.3542 23.2188 21.6458 23.2188 22C23.2188 22.3542 23.1042 22.6458 22.875 22.875C22.6458 23.1042 22.3542 23.2188 22 23.2188C21.6458 23.2188 21.3542 23.1042 21.125 22.875L15 16.75Z" fill="black"/>
-</svg>
-      </button>
+      <button class="close-btn" (click)="closePopup()">×</button>
     </div>
 
-    <!-- Swipeable Tab Navigation -->
+    <!-- Nav between sub tabs -->
     <div class="tab-navigation-container">
-      <div class="swiper tab-swiper" #tabSwiperContainer>
-        <div class="swiper-wrapper">
-          <div class="swiper-slide tab-slide" 
-               *ngFor="let tab of currentTabConfig.tabs; let i = index">
-            <button 
-              class="tab-btn" 
-              [class.active]="activeTabIndex === i"
-              (click)="onTabClick(i)">
-              {{ tab.title }}
-            </button>
-          </div>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"
+             *ngFor="let tab of currentTabConfig.tabs; let i = index">
+          <button class="tab-btn"
+                  [class.active]="activeTabIndex === i"
+                  (click)="activeTabIndex = i">
+            {{ tab.title }}
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Modal Body - Static Content (No Swiper) -->
+    <!-- MODAL BODY -->
     <div class="modal-body">
       <div class="content-container" *ngIf="getCurrentTab()">
+
         <h3 class="content-title">{{ getCurrentTab()?.title }}</h3>
-        
-        <!-- Condition Data (with icons and descriptions) -->
-        <div class="condition-list" *ngIf="isConditionData(getCurrentTab()?.data || [])">
-          <div class="condition-detail-item" *ngFor="let item of getCurrentTab()?.data">
-            <img [src]="item.icon || 'assets/icons/default.svg'" 
-                 [alt]="item.title" 
-                 class="condition-icon" 
-                 *ngIf="item.icon">
+
+        <!-- CONDITION type -->
+        <div class="condition-list" *ngIf="isConditionData(getCurrentTab()?.data)">
+          <div class="condition-detail-item"
+               *ngFor="let item of getCurrentTab()?.data">
+            <img class="condition-icon"
+                 [src]="environment.photoUrl + item.image"
+                 *ngIf="item.image"
+                 alt="" />
+
             <div class="condition-info">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.description }}</p>
+              <h4>{{ item.part }}</h4>
+              <p>{{ item.description || '-' }}</p>
             </div>
           </div>
         </div>
 
-        <!-- Feature Data (label-value pairs) -->
-        <div class="feature-list" *ngIf="isFeatureData(getCurrentTab()?.data || [])">
-          <div class="feature-item" *ngFor="let item of getCurrentTab()?.data">
+        <!-- FEATURE type -->
+        <div class="feature-list" *ngIf="isFeatureData(getCurrentTab()?.data)">
+          <div class="feature-item"
+               *ngFor="let item of getCurrentTab()?.data">
             <div class="feature-label">{{ item.label }}</div>
             <div class="feature-value">{{ item.value }}</div>
           </div>

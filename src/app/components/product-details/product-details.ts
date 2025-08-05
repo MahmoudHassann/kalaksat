@@ -13,6 +13,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { FinancingModal } from "../financing-modal/financing-modal";
+import { environment } from '../../../environments/environment';
 
 interface ConditionItem {
   id: string;
@@ -60,6 +61,7 @@ export class ProductDetails {
   minCarPrice: number = 500000;
   maxCarPrice: number = 3000000;
   monthlyInstallmentInput: number = 5000; 
+  environment = environment;
   
   // Down payment as percentage
   downPaymentPercentage: number = 40; // 40%
@@ -93,139 +95,13 @@ carSignal = signal<any | null>(null);
   currentTabConfig: any = null;
   tabSwiper: Swiper | null = null;
   isBrowser: boolean;
+public tabConfigs: any = {};
 
-  // Tab Panel Configurations
-  tabConfigs: { [key: string]: TabConfig } = {
-    '2': { // Car Condition
-      id: 'condition',
-      title: 'Car Condition Report',
-      subtitle: 'New Volvo EX30 2025',
-      tabs: [
-        {
-          id: 'exterior',
-          title: 'Exterior Condition',
-          data: [
-            {
-              id: 'rear-bumper',
-              title: 'Rear Bumper',
-              description: 'Small dent near the number plate',
-              icon: 'assets/icons/car-rear.svg'
-            },
-            {
-              id: 'front-bumper',
-              title: 'Front Bumper',
-              description: 'Minor scratch on the left side',
-              icon: 'assets/icons/car-front.svg'
-            },
-            {
-              id: 'left-door',
-              title: 'Left Door (Driver Side)',
-              description: 'Paint scratch near the handle',
-              icon: 'assets/icons/car-door.svg'
-            },
-            {
-              id: 'right-mirror',
-              title: 'Right Mirror Cover',
-              description: 'Light crack on the outer shell',
-              icon: 'assets/icons/car-mirror.svg'
-            }
-          ]
-        },
-        {
-          id: 'interior',
-          title: 'Interior Condition',
-          data: [
-            {
-              id: 'dashboard',
-              title: 'Dashboard',
-              description: 'Minor wear on the center console',
-              icon: 'assets/icons/dashboard.svg'
-            },
-            {
-              id: 'seats',
-              title: 'Front Seats',
-              description: 'Small tear on driver seat',
-              icon: 'assets/icons/car-seat.svg'
-            },
-            {
-              id: 'steering',
-              title: 'Steering Wheel',
-              description: 'Good condition, no issues',
-              icon: 'assets/icons/steering.svg'
-            }
-          ]
-        },
-        {
-          id: 'mechanical',
-          title: 'Mechanical Condition',
-          data: [
-            {
-              id: 'engine',
-              title: 'Engine',
-              description: 'Running smoothly, no issues detected',
-              icon: 'assets/icons/engine.svg'
-            },
-            {
-              id: 'brakes',
-              title: 'Brake System',
-              description: 'Brake pads need replacement soon',
-              icon: 'assets/icons/brakes.svg'
-            },
-            {
-              id: 'transmission',
-              title: 'Transmission',
-              description: 'Automatic transmission working perfectly',
-              icon: 'assets/icons/transmission.svg'
-            }
-          ]
-        }
-      ]
-    },
-    '3': { // Car Features
-      id: 'features',
-      title: 'Car Features',
-      subtitle: 'New Volvo EX30 2025',
-      tabs: [
-        {
-          id: 'performance',
-          title: 'Performance',
-          data: [
-            { label: 'Fuel Type', value: 'Gasoline' },
-            { label: 'Fuel Tank Capacity(L)', value: '50' },
-            { label: 'Maximum Speed', value: '188' },
-            { label: 'Cylinders', value: '4' },
-            { label: 'Gear Shifts', value: '6' },
-            { label: 'Acceleration from 0-100 (Km/Hr)', value: '12' }
-          ]
-        },
-        {
-          id: 'comfort',
-          title: 'Comfort & Convenience',
-          data: [
-            { label: 'Air Conditioning', value: 'Automatic Climate Control' },
-            { label: 'Seat Material', value: 'Leather' },
-            { label: 'Power Windows', value: 'All Windows' },
-            { label: 'Central Locking', value: 'Remote' },
-            { label: 'Cruise Control', value: 'Available' }
-          ]
-        },
-        {
-          id: 'entertainment',
-          title: 'Entertainment & Communication',
-          data: [
-            { label: 'Infotainment System', value: '9" Touchscreen' },
-            { label: 'Bluetooth', value: 'Available' },
-            { label: 'USB Ports', value: '4 Ports' },
-            { label: 'Speakers', value: '8 Speakers' },
-            { label: 'Navigation', value: 'Built-in GPS' }
-          ]
-        }
-      ]
-    }
-  };
+public conditionCategories: Array<{ title: string, category: string }> = [];
+public featureCategories: Array<{ title: string, category: string }> = [];
 
   // Categories for each tab panel
-  categoryItems: { [key: string]: Array<{title: string, category: string}> } = {
+/*   categoryItems: { [key: string]: Array<{title: string, category: string}> } = {
     '2': [
       { title: 'Exterior Condition', category: 'exterior' },
       { title: 'Interior Condition', category: 'interior' },
@@ -236,7 +112,7 @@ carSignal = signal<any | null>(null);
       { title: 'Comfort & Convenience', category: 'comfort' },
       { title: 'Entertainment & Communication', category: 'entertainment' }
     ]
-  };
+  }; */
 
   responsiveOptions = [
     {
@@ -295,27 +171,19 @@ carSignal = signal<any | null>(null);
 
   this.monthlyInstallmentInput = Math.round(this.calculatedMonthlyInstallment);
 }
- openConditionItem(tabPanelId: string, category?: string): void {
-    this.currentTabConfig = this.tabConfigs[tabPanelId];
-    if (!this.currentTabConfig) return;
+ openConditionItem(tabPanelId: string, category: string): void {
+  this.currentTabConfig = this.tabConfigs[tabPanelId];
+  if (!this.currentTabConfig) return;
 
-    // Find the index of the category if specified
-    if (category) {
-      const tabIndex = this.currentTabConfig.tabs.findIndex((tab:any) => tab.id === category);
-      this.activeTabIndex = tabIndex !== -1 ? tabIndex : 0;
-    } else {
-      this.activeTabIndex = 0;
-    }
+  const tabIndex = this.currentTabConfig.tabs.findIndex((t: any) => t.id === category);
+  this.activeTabIndex = tabIndex !== -1 ? tabIndex : 0;
 
-    this.isPopupOpen = true;
-    
-    // Initialize only tab swiper after popup opens
-    if (this.isBrowser) {
-      setTimeout(() => {
-        this.initTabSwiper();
-      }, 100);
-    }
-  }
+  this.isPopupOpen = true;
+
+  setTimeout(() => {
+    this.initTabSwiper();
+  }, 100);
+}
    formatCurrency(value: number | undefined | null): string {
   if (value === null || value === undefined || isNaN(value)) {
     return '0';
@@ -386,17 +254,17 @@ carSignal = signal<any | null>(null);
     return this.currentTabConfig.tabs[this.activeTabIndex];
   }
 
-  getCategoryItems(tabPanelId: string): Array<{title: string, category: string}> {
+ /*  getCategoryItems(tabPanelId: string): Array<{title: string, category: string}> {
     return this.categoryItems[tabPanelId] || [];
-  }
+  } */
 
-  isFeatureData(data: any[]): data is FeatureItem[] {
-    return data.length > 0 && 'label' in data[0] && 'value' in data[0];
-  }
+ isConditionData(data: any[]): boolean {
+  return data.length && data[0].hasOwnProperty('part');
+}
 
-  isConditionData(data: any[]): data is ConditionItem[] {
-    return data.length > 0 && 'title' in data[0] && 'description' in data[0];
-  }
+isFeatureData(data: any[]): boolean {
+  return data.length && data[0].hasOwnProperty('label');
+}
 
   onBackdropClick(event: MouseEvent): void {
     if (event.target === event.currentTarget) {
@@ -404,18 +272,72 @@ carSignal = signal<any | null>(null);
     }
   }
 
+  galleryImages: string[] = [];
 private loadCarDetails(): void {
   this.carService.getCarById(this.carId)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (res: any) => {
        this.carSignal.set(res.data);
+       if (res?.data?.images?.length) {
+        this.galleryImages = res.data.images.map(
+      (img: any) => environment.photoUrl + img.location
+    );
+  }
        this.price = this.carPrice();
+        /** ----- CONDITIONS ----- **/
+      if (res.data.conditions) {
+        this.conditionCategories = [];
+        const tabs:any = [];
+
+        Object.keys(res.data.conditions).forEach(key => {
+          const title = this.formatTitle(key);
+          this.conditionCategories.push({ title, category: key });
+          tabs.push({
+            id: key,
+            title,
+            data: res.data.conditions[key]   // contains part, description, image
+          });
+        });
+
+        this.tabConfigs['conditions'] = {
+          id: 'condition',
+          title: 'Car Condition Report',
+          subtitle: res.data.full_name,
+          tabs
+        };
+      }
+
+      /** ----- FEATURES ----- **/
+      if (res.data.features) {
+        this.featureCategories = [];
+        const tabs:any = [];
+
+        Object.keys(res.data.features).forEach(key => {
+          const title = this.formatTitle(key);
+          this.featureCategories.push({ title, category: key });
+          tabs.push({
+            id: key,
+            title,
+            data: res.data.features[key]   // contains label, value
+          });
+        });
+
+        this.tabConfigs['features'] = {
+          id: 'features',
+          title: 'Car Features',
+          subtitle: res.data.full_name,
+          tabs
+        };
+      }
       },
       error: (error) => {
         console.error('Error loading car details:', error);
       }
     });
+}
+private formatTitle(text: string): string {
+  return text.replace(/_/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
   formatPrice(price: number): string {

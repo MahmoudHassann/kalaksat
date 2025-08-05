@@ -129,10 +129,37 @@
       .p-tabpanels {
         padding: 30px 0 !important;
       }
-      .p-tabs {
-        width: fit-content !important;
-      }
+      .p-tablist {
+  overflow-x: auto;
+      overflow-y: hidden;
+  flex-wrap: nowrap !important;
+  scrollbar-width: thin;          /* Firefox */
+  scrollbar-color: #e02027 #f1f1f1; /* Firefox */
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #e02027;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken(#e02027, 10%);
+  }
+}
+    .p-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+    }
+
 
     .car-summary-content {
       border-radius: 12px;
@@ -182,7 +209,15 @@
           .headerName {
             font-weight: 700;
           }
+          p {
+      font-size: 0.85rem;
+    }
         }
+        @media (max-width: 576px) {
+    .row {
+      gap: 12px;
+    }
+  }
       }
 
       p {
@@ -201,6 +236,14 @@
       }
     }
   }
+  @media (max-width: 992px) {
+  .row {
+    flex-direction: column;
+  }
+  .tabs-section {
+    margin-top: 1.5rem;
+  }
+}
 
   .loading-container {
     padding: 2rem;
@@ -316,6 +359,7 @@
   .car-details-container {
     .gallery-container {
       .gallery-actions {
+        display: block;
         .btn {
           font-size: 0.875rem;
           padding: 0.5rem 0.75rem;
@@ -589,10 +633,14 @@ $border-radius: 8px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  transition: background 0.3s ease;
+  color: #000;
+  border: 1px solid #000;
+  transition: all 0.3s ease-out;
 
   &:hover {
+    color: #fff;
     background: rgba(0, 0, 0, 0.2);
+    border: none;
   }
 
   i {
@@ -619,6 +667,10 @@ $border-radius: 8px;
   ::ng-deep {
     .swiper-wrapper {
       gap: 15px;
+      justify-content: center;
+    }
+    .swiper-slide{
+      width: fit-content;
     }
   }
 }
@@ -935,6 +987,13 @@ $border-radius: 8px;
     }
   }
 }
+.finance{
+  .overview-card{
+    @media (max-width:1290px){
+      box-shadow: none!important;
+    }
+  }
+}
 .finance-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -948,6 +1007,9 @@ $border-radius: 8px;
 }
 .installment-section {
   width: 280px;
+  @media(max-width:992px){
+    width: 100%;
+  }
   .installment-card {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
